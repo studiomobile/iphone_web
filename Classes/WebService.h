@@ -1,5 +1,6 @@
 #import "WebAction.h"
 
+extern const NSString *kHTTPErrorDomain;
 
 @interface WebService : NSObject {
 	CFMutableDictionaryRef connections;

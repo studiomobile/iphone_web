@@ -2,6 +2,10 @@
 #import "ConnectionState.h"
 #import "WebParams.h"
 
+
+const NSString *kHTTPErrorDomain = @"HTTPErrorDomain";
+
+
 @implementation WebService
 
 @synthesize timeout;
