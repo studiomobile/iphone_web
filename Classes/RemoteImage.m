@@ -7,6 +7,12 @@
 @synthesize imageData;
 @synthesize lastError;
 
+
++ (RemoteImage*)remoteImageWithURL:(NSURL*)url {
+    return [[[self alloc] initWithURL:url] autorelease];
+}
+
+
 - (id)initWithURL:(NSURL*)url {
 	if (![super init]) return nil;
 	imageUrl = [url retain];
