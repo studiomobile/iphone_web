@@ -1,4 +1,5 @@
 #import "ConnectionData.h"
+#import "WebService.h"
 
 @implementation ConnectionData
 
@@ -33,10 +34,21 @@
 }
 
 
+- (NSString*)errorNameFromCode:(NSInteger)code {
+    switch (code) {
+        case 401: return @"Unauthorized";
+        case 402: return @"Payment Required";
+        case 403: return @"Forbidden";
+    }
+    return @"WebServer Error";
+}
+
+
 - (NSError*)error {
-	if (!error && response && response.statusCode != 200) {
-		NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"WebServer Error" forKey:NSLocalizedDescriptionKey];
-		return error = [[NSError errorWithDomain:@"WebServerError" code:[response statusCode] userInfo:userInfo] retain];
+	if (!error && response && response.statusCode >= 400) {
+		NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[self errorNameFromCode:response.statusCode]
+                                                             forKey:NSLocalizedDescriptionKey];
+		error = [[NSError errorWithDomain:(NSString*)kHTTPErrorDomain code:response.statusCode userInfo:userInfo] retain];
 	}
 	return error;
 }

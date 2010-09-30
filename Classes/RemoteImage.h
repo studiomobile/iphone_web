@@ -24,6 +24,8 @@
 @property (nonatomic, readonly) NSError *lastError;
 @property (nonatomic, readonly) BOOL loading;
 
++ (RemoteImage*)remoteImageWithURL:(NSURL*)url;
+
 - (id)initWithURL:(NSURL*)url;
 
 - (void)startLoading;
