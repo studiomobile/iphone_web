@@ -1,3 +1,7 @@
+//
+//  This content is released under the MIT License: http://www.opensource.org/licenses/mit-license.html
+//
+
 #import "WebService.h"
 #import "ConnectionState.h"
 #import "WebParams.h"

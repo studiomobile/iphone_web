@@ -1,3 +1,7 @@
+//
+//  This content is released under the MIT License: http://www.opensource.org/licenses/mit-license.html
+//
+
 #import "WebAction.h"
 
 @implementation WebAction
