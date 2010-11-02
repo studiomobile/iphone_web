@@ -113,7 +113,7 @@
 		NSString *key = [keys objectAtIndex:i];
 		NSObject *value = [params objectForKey:key];
 		if ([self isFileUpload:value]) {
-            NSString *filename = [value respondsToSelector:@selector(filename)] ? [(id)value fileName] : key;
+            NSString *filename = [value respondsToSelector:@selector(fileName)] ? [(id)value fileName] : key;
 			NSString *contentType = [value respondsToSelector:@selector(contentType)] ? [(id)value contentType] : @"application/octet-stream";
             NSData *data = [value respondsToSelector:@selector(data)] ? [(id)value data] : (NSData*)value;
 			[postData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\nContent-Type: %@\r\nContent-Transfer-Encoding: binary\r\n\r\n", key, filename, contentType] dataUsingEncoding:NSUTF8StringEncoding]];
