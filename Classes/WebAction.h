@@ -4,6 +4,7 @@
 
 #import "WebParams.h"
 #import "ConnectionData.h"
+#import "WebCredentials.h"
 
 typedef enum  {
 	HTTP_METHOD_GET,
@@ -18,11 +19,13 @@ typedef enum  {
 	NSURL *url;
 	WebParams *params;
 	HttpMethod method;
+    WebCredentials *credentials;
 	NSDictionary *userData;
 }
 @property (nonatomic, readonly) NSURL *url;
 @property (nonatomic, readonly) WebParams *params;
 @property (nonatomic, assign) HttpMethod method;
+@property (nonatomic, retain) WebCredentials *credentials;
 @property (nonatomic, retain) NSDictionary *userData;
 
 - (id)initWithURL:(NSURL*)url;

@@ -68,13 +68,15 @@ const NSString *kHTTPErrorDomain = @"HTTPErrorDomain";
 		case HTTP_METHOD_DELETE:
 			break;
 	}
-	NSLog(@"%@", url);
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:timeout];
 	[request setHTTPMethod:[self methodVerb:action.method]];
 	if (cookies) {
 		NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
 		[request setAllHTTPHeaderFields:headers];
 	}
+    if (action.credentials) {
+        [request setValue:action.credentials.basicAuthHeader forHTTPHeaderField:@"Authorization"];
+    }
 	if (data) {
 		[request setHTTPBody:data];
 		[request setValue:[NSString stringWithFormat:@"%d", data.length] forHTTPHeaderField:@"Content-Length"];

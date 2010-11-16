@@ -25,6 +25,10 @@
 		B45996131248D9B90055E86E /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B45996031248D9B90055E86E /* WebParams.m */; };
 		B45996141248D9B90055E86E /* WebService.h in Headers */ = {isa = PBXBuildFile; fileRef = B45996041248D9B90055E86E /* WebService.h */; };
 		B45996151248D9B90055E86E /* WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = B45996051248D9B90055E86E /* WebService.m */; };
+		B462AE731292D4D8008A8ECC /* WebCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = B462AE711292D4D8008A8ECC /* WebCredentials.h */; };
+		B462AE741292D4D8008A8ECC /* WebCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE721292D4D8008A8ECC /* WebCredentials.m */; };
+		B462AE871292D9E2008A8ECC /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = B462AE851292D9E2008A8ECC /* NSData+Base64.h */; };
+		B462AE881292D9E2008A8ECC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		B45996031248D9B90055E86E /* WebParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebParams.m; sourceTree = "<group>"; };
 		B45996041248D9B90055E86E /* WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebService.h; sourceTree = "<group>"; };
 		B45996051248D9B90055E86E /* WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebService.m; sourceTree = "<group>"; };
+		B462AE711292D4D8008A8ECC /* WebCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebCredentials.h; sourceTree = "<group>"; };
+		B462AE721292D4D8008A8ECC /* WebCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebCredentials.m; sourceTree = "<group>"; };
+		B462AE851292D9E2008A8ECC /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		B462AE861292D9E2008A8ECC /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		D2AAC07E0554694100DB518D /* libiphone_web.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiphone_web.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -99,6 +107,8 @@
 		B45995F51248D9B90055E86E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B462AE851292D9E2008A8ECC /* NSData+Base64.h */,
+				B462AE861292D9E2008A8ECC /* NSData+Base64.m */,
 				B45995F61248D9B90055E86E /* ConnectionData.h */,
 				B45995F71248D9B90055E86E /* ConnectionData.m */,
 				B45995F81248D9B90055E86E /* ConnectionState.h */,
@@ -115,6 +125,8 @@
 				B45996031248D9B90055E86E /* WebParams.m */,
 				B45996041248D9B90055E86E /* WebService.h */,
 				B45996051248D9B90055E86E /* WebService.m */,
+				B462AE711292D4D8008A8ECC /* WebCredentials.h */,
+				B462AE721292D4D8008A8ECC /* WebCredentials.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -135,6 +147,8 @@
 				B45996101248D9B90055E86E /* WebAction.h in Headers */,
 				B45996121248D9B90055E86E /* WebParams.h in Headers */,
 				B45996141248D9B90055E86E /* WebService.h in Headers */,
+				B462AE731292D4D8008A8ECC /* WebCredentials.h in Headers */,
+				B462AE871292D9E2008A8ECC /* NSData+Base64.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +179,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "iphone_web" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* iphone_web */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
@@ -189,6 +210,8 @@
 				B45996111248D9B90055E86E /* WebAction.m in Sources */,
 				B45996131248D9B90055E86E /* WebParams.m in Sources */,
 				B45996151248D9B90055E86E /* WebService.m in Sources */,
+				B462AE741292D4D8008A8ECC /* WebCredentials.m in Sources */,
+				B462AE881292D9E2008A8ECC /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +260,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
@@ -250,7 +273,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Release;
 		};

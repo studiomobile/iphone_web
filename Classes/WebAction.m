@@ -9,6 +9,7 @@
 @synthesize url;
 @synthesize params;
 @synthesize method;
+@synthesize credentials;
 @synthesize userData;
 
 
@@ -40,6 +41,7 @@
 - (void)dealloc {
 	[url release];
 	[params release];
+    [credentials release];
 	[userData release];
 	[super dealloc];
 }
