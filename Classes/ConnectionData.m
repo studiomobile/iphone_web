@@ -40,11 +40,11 @@
 
 - (NSString*)errorNameFromCode:(NSInteger)code {
     switch (code) {
-        case 401: return @"Unauthorized";
-        case 402: return @"Payment Required";
-        case 403: return @"Forbidden";
+        case 401: return NSLocalizedString(@"Unauthorized", nil);
+        case 402: return NSLocalizedString(@"Payment Required", nil);
+        case 403: return NSLocalizedString(@"Forbidden", nil);
     }
-    return @"WebServer Error";
+    return NSLocalizedString(@"WebServer Error", nil);
 }
 
 
