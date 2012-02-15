@@ -6,17 +6,15 @@
 
 @class UIImage;
 
-@interface FileUpload : NSObject {
-	NSData *data;
-	NSString *fileName;
-	NSString *contentType;
-}
-@property (readonly) NSData *data;
-@property (readonly) NSString *fileName;
-@property (readonly) NSString *contentType;
+@interface FileUpload : NSObject
+@property (nonatomic, strong, readonly) NSData *data;
+@property (nonatomic, strong, readonly) NSString *fileName;
+@property (nonatomic, strong, readonly) NSString *contentType;
 
-+ (FileUpload*)fileUploadForJPEGImage:(UIImage*)image withFileName:(NSString*)filename quality:(float)quality;
-+ (FileUpload*)fileUploadForPNGImage:(UIImage*)image withFileName:(NSString*)filename;
-+ (FileUpload*)fileUploadForData:(NSData*)data withFileName:(NSString*)filename contentType:(NSString*)contentType;
++ (FileUpload*)fileUploadWithJPEGImage:(UIImage*)image withFileName:(NSString*)filename quality:(float)quality;
++ (FileUpload*)fileUploadWithPNGImage:(UIImage*)image withFileName:(NSString*)filename;
++ (FileUpload*)fileUploadWithData:(NSData*)data withFileName:(NSString*)filename contentType:(NSString*)contentType;
+
++ (id)wrapDataObject:(id)object name:(NSString*)name;
 
 @end

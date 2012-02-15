@@ -2,153 +2,144 @@
 //  This content is released under the MIT License: http://www.opensource.org/licenses/mit-license.html
 //
 
-#import <UIKit/UIKit.h>
 #import "WebParams.h"
-#import "NSString+Web.h"
+#import "FileUpload.h"
+#import "Multipart.h"
 
-@implementation WebParams
+#define IS_FILEUPLOAD(value) [value isKindOfClass:[FileUpload class]]
 
-+ (WebParams*)params {
-	return [[WebParams new] autorelease];
+static NSString *encodeQueryField(id value)
+{
+    return (__bridge_transfer NSString*)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)[value description], NULL, CFSTR("\"%;/?:@&=+$,[]#!'()*"), kCFStringEncodingUTF8);
 }
 
+typedef void (^Visitor)(NSString *name, id value);
 
-- (id)initWithDictionary:(NSDictionary*)dictionary {
-	if (![super init]) return nil;
-    params = [[NSMutableDictionary alloc] initWithDictionary:dictionary];
+static void visit(Visitor visitor, NSString *name, id value)
+{
+    if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) {
+        for (id v in value) {
+            visit(visitor, name, v);
+        }
+    } else {
+        visitor(name, value);
+    }
+}
+
+@implementation WebParams {
+	NSMutableDictionary *params;
+    NSString *boundary;
+}
+@synthesize multipart;
+
+- (id)initWithDictionary:(NSDictionary*)dictionary
+{
+    if (self = [super init]) {
+        params = [NSMutableDictionary new];
+        CFUUIDRef uuid = CFUUIDCreate(NULL);
+        boundary = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+        CFRelease(uuid);
+        for (id name in dictionary) {
+            [self addObject:[dictionary objectForKey:name] forKey:name];
+        }
+    }
 	return self;
 }
 
-
-- (id)init {
-    return [self initWithDictionary:[NSDictionary dictionary]];
+- (id)init
+{
+    return [self initWithDictionary:[NSDictionary new]];
 }
 
-
-- (BOOL)isFileUpload:(id)param {
-    return [param isKindOfClass:[NSData class]] || [param isKindOfClass:[FileUpload class]];
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"<%@: %@>", NSStringFromClass(self.class), params];
 }
 
-
-- (void)setParam:(id)_param forKey:(id)key {
-	if (!_param) return;
-	multipart |= [self isFileUpload:_param];
-	[params setObject:_param forKey:key];
+- (void)_each:(Visitor)visitor
+{
+    for (NSString *key in params.keyEnumerator) {
+        visit(visitor, key, [params objectForKey:key]);
+    }
 }
 
-
-- (void)addParam:(id)_param forKey:(id)key {
-	if (!_param) return;
-	multipart |= [self isFileUpload:_param];
-	id value = [params objectForKey:key];
-	if (value) {
-		if (![value isKindOfClass:[NSMutableArray class]]) {
-			if ([value isKindOfClass:[NSArray class]]) {
-				value = [NSMutableArray arrayWithArray:value];
-			} else {
-				value = [NSMutableArray arrayWithObject:value];
-			}
-			[params setObject:value forKey:key];
-		}
-		if ([_param isKindOfClass:[NSArray class]]) {
-			[(NSMutableArray*)value addObjectsFromArray:_param];
-		} else {
-			[(NSMutableArray*)value addObject:_param];
-		}
-	} else {
-		[params setObject:_param forKey:key];
-	}
+- (void)setObject:(id)obj forKey:(id)key
+{
+    [params removeObjectForKey:key];
+    [self addObject:obj forKey:key];
 }
 
-
-- (NSString*)encodeQueryValue:(id)value {
-	return [[value description] urlEncode:@"\"%;/?:@&=+$,[]#!'()*"];
+- (void)addObject:(id)obj forKey:(id)key
+{
+	if (!obj) return;
+    NSMutableArray *values = [NSMutableArray new];
+    visit(^(NSString *name, id value) {
+        value = [FileUpload wrapDataObject:value name:name];
+        multipart |= IS_FILEUPLOAD(value);
+        [values addObject:value];
+    }, key, obj);
+    if (![params objectForKey:key]) {
+        [params setObject:values.count > 1 ? values : [values lastObject] forKey:key];
+        return;
+    }
+	NSMutableArray *container = [params objectForKey:key];
+    if (![container isKindOfClass:[NSArray class]]) {
+        container = [NSMutableArray arrayWithObject:container];
+    }
+    [container addObjectsFromArray:values];
 }
 
-
-- (void)appendToQueryString:(NSMutableString*)queryString key:(NSString*)key value:(id)value {
-	[queryString appendString:@"&"];
-	[queryString appendString:[self encodeQueryValue:key]];
-	[queryString appendString:@"="];
-	[queryString appendString:[self encodeQueryValue:value]];
-}
-
-
-- (NSString*)queryString {
+- (NSString*)queryString
+{
 	NSMutableString *queryString = [NSMutableString string];
-	for (NSString *key in params) {
-		NSObject *value = [params objectForKey:key];
-		if ([self isFileUpload:value]) continue;
-		if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) {
-			for (id v in (id<NSFastEnumeration>)value) {
-				[self appendToQueryString:queryString key:key value:v];
-			}
-		} else {
-			[self appendToQueryString:queryString key:key value:value];
-		}
-	}
+    [self _each:^(NSString *name, id value) {
+        if (IS_FILEUPLOAD(value)) return;
+        [queryString appendString:@"&"];
+        [queryString appendString:encodeQueryField(name)];
+        [queryString appendString:@"="];
+        [queryString appendString:encodeQueryField(value)];
+    }];
 	if (queryString.length) {
 		[queryString replaceCharactersInRange:NSMakeRange(0, 1) withString:@"?"];
 	}
 	return queryString;
 }
 
+- (NSString*)jsonContentType { return @"application/json"; }
+- (NSString*)formContentType { return @"application/x-www-form-urlencoded"; }
+- (NSString*)multipartContentType { return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]; }
+- (NSString*)postContentType { return multipart ? self.multipartContentType : self.formContentType; }
 
-- (NSString*)boundary {
-	return [[UIDevice currentDevice] uniqueIdentifier];
+- (NSData*)postData
+{
+    return multipart ? self.multipartData : self.formData;
 }
 
-
-- (NSString*)contentType {
-	return multipart ? [NSString stringWithFormat:@"multipart/form-data; boundary=%@", self.boundary] : @"application/x-www-form-urlencoded";
+- (NSData*)multipartData
+{
+    Multipart *multi = [[Multipart alloc] initWithBoundary:boundary];
+    [self _each:^(NSString *name, id value) {
+        [multi appendName:name value:value];
+    }];
+	return [multi getData];
 }
 
-
-- (NSData*)multipartPostData {
-	NSMutableData *postData = [NSMutableData data];
-	
-    [postData appendData:[[NSString stringWithFormat:@"--%@\r\n", self.boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    NSArray *keys = [params allKeys];
-	for (int i = 0; i < keys.count; ++i) {
-		NSString *key = [keys objectAtIndex:i];
-		NSObject *value = [params objectForKey:key];
-		if ([self isFileUpload:value]) {
-            NSString *filename = [value respondsToSelector:@selector(fileName)] ? [(id)value fileName] : key;
-			NSString *contentType = [value respondsToSelector:@selector(contentType)] ? [(id)value contentType] : @"application/octet-stream";
-            NSData *data = [value respondsToSelector:@selector(data)] ? [(id)value data] : (NSData*)value;
-			[postData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\nContent-Type: %@\r\nContent-Transfer-Encoding: binary\r\n\r\n", key, filename, contentType] dataUsingEncoding:NSUTF8StringEncoding]];
-			[postData appendData:data];
-		} else {
-			if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) {
-				for (id v in (id<NSFastEnumeration>)value) {
-					[postData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
-					[postData appendData:[[v description] dataUsingEncoding:NSUTF8StringEncoding]];
-				}
-			} else {
-				[postData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
-				[postData appendData:[[value description] dataUsingEncoding:NSUTF8StringEncoding]];
-			}
-		}
-		if (i == keys.count - 1) {
-			[postData appendData:[[NSString stringWithFormat:@"\r\n--%@--", self.boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		} else {
-			[postData appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", self.boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		}
-	}
-	
-	return postData;
-}
-
-
-- (NSData*)postData {
-	if (multipart) return [self multipartPostData];
+- (NSData*)formData
+{
 	NSMutableString *queryString = (NSMutableString*)self.queryString;
 	[queryString deleteCharactersInRange:NSMakeRange(0, 1)];
 	return [queryString dataUsingEncoding:NSUTF8StringEncoding];
 }
 
+- (NSData*)jsonData
+{
+    NSString *json = [params valueForKeyPath:@"JSONRepresentation"];
+    if (![json isKindOfClass:[NSString class]]) return nil;
+    return [json dataUsingEncoding:NSUTF8StringEncoding];
+}
 
-- (NSURL*)appendToURL:(NSURL*)url {
+- (NSURL*)appendToURL:(NSURL*)url
+{
 	if (params.count == 0) return url;
 	BOOL haveParams = [[url absoluteString] rangeOfString:@"?"].length > 0;
 	NSMutableString *queryString = (NSMutableString*)self.queryString;
@@ -156,10 +147,5 @@
 	return [NSURL URLWithString:queryString relativeToURL:url];
 }
 
-
-- (void)dealloc {
-	[params release];
-	[super dealloc];
-}
-
 @end
+
