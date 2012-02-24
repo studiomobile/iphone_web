@@ -16,6 +16,8 @@
 		B483A3D814EBE8FA00E1FC5A /* Multipart.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3D614EBE8FA00E1FC5A /* Multipart.m */; };
 		B483A3DB14EBE95C00E1FC5A /* WebParams.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D914EBE95C00E1FC5A /* WebParams.h */; };
 		B483A3DC14EBE95C00E1FC5A /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3DA14EBE95C00E1FC5A /* WebParams.m */; };
+		B4A1503914F79D1A0053C3C1 /* URLRequestExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = B4A1503714F79D1A0053C3C1 /* URLRequestExecutor.h */; };
+		B4A1503A14F79D1A0053C3C1 /* URLRequestExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		B483A3D614EBE8FA00E1FC5A /* Multipart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Multipart.m; sourceTree = "<group>"; };
 		B483A3D914EBE95C00E1FC5A /* WebParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebParams.h; sourceTree = "<group>"; };
 		B483A3DA14EBE95C00E1FC5A /* WebParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebParams.m; sourceTree = "<group>"; };
+		B4A1503714F79D1A0053C3C1 /* URLRequestExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLRequestExecutor.h; sourceTree = "<group>"; };
+		B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLRequestExecutor.m; sourceTree = "<group>"; };
 		D2AAC07E0554694100DB518D /* libiphone_web.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiphone_web.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -80,6 +84,8 @@
 				B483A3D614EBE8FA00E1FC5A /* Multipart.m */,
 				B483A3CD14EBE8AB00E1FC5A /* FileUpload.h */,
 				B483A3CE14EBE8AB00E1FC5A /* FileUpload.m */,
+				B4A1503714F79D1A0053C3C1 /* URLRequestExecutor.h */,
+				B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -95,6 +101,7 @@
 				B483A3D114EBE8AB00E1FC5A /* FileUpload.h in Headers */,
 				B483A3D714EBE8FA00E1FC5A /* Multipart.h in Headers */,
 				B483A3DB14EBE95C00E1FC5A /* WebParams.h in Headers */,
+				B4A1503914F79D1A0053C3C1 /* URLRequestExecutor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +162,7 @@
 				B483A3D214EBE8AB00E1FC5A /* FileUpload.m in Sources */,
 				B483A3D814EBE8FA00E1FC5A /* Multipart.m in Sources */,
 				B483A3DC14EBE95C00E1FC5A /* WebParams.m in Sources */,
+				B4A1503A14F79D1A0053C3C1 /* URLRequestExecutor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,13 +174,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/iphone_web.dst;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = iphone_web;
 			};
@@ -183,10 +192,11 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DSTROOT = /tmp/iphone_web.dst;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = iphone_web;
 			};
