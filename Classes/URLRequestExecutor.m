@@ -53,7 +53,7 @@
     [self cancel];
 }
 
-- (void)setDelegate:(id<RequestExecutorDelegate>)_delegate
+- (void)setDelegate:(id<URLRequestExecutorDelegate>)_delegate
 {
     delegate = _delegate;
     flags.finishWithResponse = [delegate respondsToSelector:@selector(requestExecutor:didFinishWithResponse:)];

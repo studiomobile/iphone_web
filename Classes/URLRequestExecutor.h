@@ -4,11 +4,11 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol RequestExecutorDelegate;
+@protocol URLRequestExecutorDelegate;
 
 
 @interface URLRequestExecutor : NSObject
-@property (nonatomic, unsafe_unretained) id<RequestExecutorDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<URLRequestExecutorDelegate> delegate;
 @property (nonatomic, strong, readonly) NSURLRequest* originalRequest;
 @property (nonatomic, strong, readonly) NSURLRequest* currentRequest;
 @property (nonatomic, strong, readonly) NSURLResponse* response;
@@ -22,7 +22,7 @@
 @end
 
 
-@protocol RequestExecutorDelegate <NSObject>
+@protocol URLRequestExecutorDelegate <NSObject>
 @optional
 
 - (void)requestExecutor:(URLRequestExecutor*)executor didFinishWithResponse:(NSURLResponse*)response;
