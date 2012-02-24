@@ -133,7 +133,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)jsonData
 {
-    [params valueForKeyPath:@"JSONData"];
+    return [params valueForKeyPath:@"JSONData"];
 }
 
 - (NSURL*)appendToURL:(NSURL*)url
