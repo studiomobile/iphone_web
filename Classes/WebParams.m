@@ -133,9 +133,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)jsonData
 {
-    NSString *json = [params valueForKeyPath:@"JSONRepresentation"];
-    if (![json isKindOfClass:[NSString class]]) return nil;
-    return [json dataUsingEncoding:NSUTF8StringEncoding];
+    [params valueForKeyPath:@"JSONData"];
 }
 
 - (NSURL*)appendToURL:(NSURL*)url

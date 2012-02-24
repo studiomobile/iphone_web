@@ -6,7 +6,7 @@
 
 @interface WebParams : NSObject
 @property (nonatomic, strong, readonly) NSString *queryString;
-@property (nonatomic, strong, readonly) NSData *jsonData; // NSDictionary should respond to -(NSString*)JSONRepresentation;
+@property (nonatomic, strong, readonly) NSData *jsonData; // NSDictionary should respond to -(NSData*)JSONData;
 @property (nonatomic, strong, readonly) NSData *formData;
 @property (nonatomic, strong, readonly) NSData *multipartData;
 @property (nonatomic, strong, readonly) NSData *postData;
