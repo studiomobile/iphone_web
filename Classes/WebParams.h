@@ -19,9 +19,11 @@
 @property (nonatomic, readonly) BOOL multipart;
 
 
+- (id)initWithURL:(NSURL*)url;
+- (id)initWithQuery:(NSString*)query;
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 
-
+- (id)objectForKey:(id)key;
 - (void)setObject:(id)obj forKey:(id)key;
 - (void)addObject:(id)obj forKey:(id)key;
 

@@ -32,6 +32,24 @@ static void visit(Visitor visitor, NSString *name, id value)
 }
 @synthesize multipart;
 
+- (id)initWithURL:(NSURL*)url
+{
+    return [self initWithQuery:url.query];
+}
+
+- (id)initWithQuery:(NSString*)query
+{
+    NSMutableDictionary *values = [NSMutableDictionary new];
+    for (NSString *kv in [query componentsSeparatedByString:@"&"]) {
+        NSInteger idx = [kv rangeOfString:@"="].location;
+        if (NSNotFound == idx) continue;
+        NSString *k = [kv substringToIndex:idx];
+        NSString *v = [kv substringFromIndex:idx+1];
+        [values setObject:v forKey:k];
+    }
+    return [self initWithDictionary:values];
+}
+
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if (self = [super init]) {
@@ -61,6 +79,11 @@ static void visit(Visitor visitor, NSString *name, id value)
     for (NSString *key in params.keyEnumerator) {
         visit(visitor, key, [params objectForKey:key]);
     }
+}
+
+- (id)objectForKey:(id)key
+{
+    return [params objectForKey:key];
 }
 
 - (void)setObject:(id)obj forKey:(id)key
