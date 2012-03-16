@@ -13,6 +13,11 @@ static NSString *encodeQueryField(id value)
     return (__bridge_transfer NSString*)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)[value description], NULL, CFSTR("\"%;/?:@&=+$,[]#!'()*"), kCFStringEncodingUTF8);
 }
 
+static NSString *decodeQueryField(NSString *field)
+{
+    return (__bridge_transfer NSString*)CFURLCreateStringByReplacingPercentEscapes(NULL, (__bridge CFStringRef)field, CFSTR(""));
+}
+
 typedef void (^Visitor)(NSString *name, id value);
 
 static void visit(Visitor visitor, NSString *name, id value)
@@ -43,8 +48,8 @@ static void visit(Visitor visitor, NSString *name, id value)
     for (NSString *kv in [query componentsSeparatedByString:@"&"]) {
         NSInteger idx = [kv rangeOfString:@"="].location;
         if (NSNotFound == idx) continue;
-        NSString *k = [kv substringToIndex:idx];
-        NSString *v = [kv substringFromIndex:idx+1];
+        NSString *k = decodeQueryField([kv substringToIndex:idx]);
+        NSString *v = decodeQueryField([kv substringFromIndex:idx+1]);
         [values setObject:v forKey:k];
     }
     return [self initWithDictionary:values];
