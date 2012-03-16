@@ -154,9 +154,9 @@ static void visit(Visitor visitor, NSString *name, id value)
 	return [queryString dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSData*)jsonData
+- (NSData*)JSONData
 {
-    return [params valueForKeyPath:@"JSONData"];
+    return [params respondsToSelector:@selector(JSONData)] ? [(id)params JSONData] : nil;
 }
 
 - (NSURL*)appendToURL:(NSURL*)url
