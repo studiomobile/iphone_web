@@ -161,7 +161,11 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)JSONData
 {
-    return [params respondsToSelector:@selector(JSONData)] ? [(id)params JSONData] : nil;
+    BOOL canSerialize = [params respondsToSelector:@selector(JSONData)];
+    if (!canSerialize) {
+        NSLog(@"WARNING: class %@ should respond to selector `JSONData`, meanwhile returning nil...", NSStringFromClass([params class]));
+    }
+    return canSerialize ? [(id)params JSONData] : nil;
 }
 
 - (NSURL*)appendToURL:(NSURL*)url

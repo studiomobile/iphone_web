@@ -42,7 +42,7 @@
     if (self = [super init]) {
         proxy = [URLRequestExecutor_ConnectionProxy new];
         proxy.delegate = self;
-        connection = [[NSURLConnection alloc] initWithRequest:req delegate:proxy];
+        connection = [[NSURLConnection alloc] initWithRequest:req delegate:proxy startImmediately:NO];
         [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
     return self;
@@ -58,7 +58,7 @@
     delegate = _delegate;
     flags.finishWithResponse = [delegate respondsToSelector:@selector(requestExecutor:didFinishWithResponse:)];
     flags.finishWithData = [delegate respondsToSelector:@selector(requestExecutor:didFinishWithData:)];
-    flags.failedWithError = [delegate respondsToSelector:@selector(requestExecutor:didFinishWithData:)];
+    flags.failedWithError = [delegate respondsToSelector:@selector(requestExecutor:didFailWithError:)];
     flags.receiveResponse = [delegate respondsToSelector:@selector(requestExecutor:didReceiveResponse:)];
     flags.receiveDataChunk = [delegate respondsToSelector:@selector(requestExecutor:didReceiveDataChunk:)];
     flags.handleRedirect = [delegate respondsToSelector:@selector(requestExecutor:didReceiveRedirectResponse:willSendRequest:)];
@@ -126,11 +126,6 @@
 {
     proxy.delegate = nil;
     [connection cancel];
-}
-
-- (NSString*)description
-{
-    return [NSString stringWithFormat:@"Req: %@", connection.originalRequest];
 }
 
 @end
