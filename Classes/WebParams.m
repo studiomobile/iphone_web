@@ -10,12 +10,12 @@
 
 static NSString *encodeQueryField(id value)
 {
-    return (__bridge_transfer NSString*)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)[value description], NULL, CFSTR("\"%;/?:@&=+$,[]#!'()*"), kCFStringEncodingUTF8);
+    return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)[value description], NULL, CFSTR("\"%;/?:@&=+$,[]#!'()*"), kCFStringEncodingUTF8));
 }
 
 static NSString *decodeQueryField(NSString *field)
 {
-    return (__bridge_transfer NSString*)CFURLCreateStringByReplacingPercentEscapes(NULL, (__bridge CFStringRef)field, CFSTR(""));
+    return CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapes(NULL, (__bridge CFStringRef)field, CFSTR("")));
 }
 
 typedef void (^Visitor)(NSString *name, id value);
@@ -126,20 +126,26 @@ static void visit(Visitor visitor, NSString *name, id value)
     }
 }
 
-- (NSString*)queryString
+- (NSMutableString*)_query
 {
-	NSMutableString *queryString = [NSMutableString string];
+	NSMutableString *query = [NSMutableString string];
     [self _each:^(NSString *name, id value) {
         if (IS_FILEUPLOAD(value)) return;
-        [queryString appendString:@"&"];
-        [queryString appendString:encodeQueryField(name)];
-        [queryString appendString:@"="];
-        [queryString appendString:encodeQueryField(value)];
+        [query appendString:@"&"];
+        [query appendString:encodeQueryField(name)];
+        [query appendString:@"="];
+        [query appendString:encodeQueryField(value)];
     }];
-	if (queryString.length) {
-		[queryString replaceCharactersInRange:NSMakeRange(0, 1) withString:@"?"];
+	return query;
+}
+
+- (NSString*)queryString
+{
+    NSMutableString *query = [self _query];
+	if (query.length) {
+		[query replaceCharactersInRange:NSMakeRange(0, 1) withString:@"?"];
 	}
-	return queryString;
+    return query;
 }
 
 - (NSString*)jsonContentType { return @"application/json"; }
@@ -163,9 +169,12 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)formData
 {
-	NSMutableString *queryString = (NSMutableString*)self.queryString;
-	[queryString deleteCharactersInRange:NSMakeRange(0, 1)];
-	return [queryString dataUsingEncoding:NSUTF8StringEncoding];
+	if (params.count == 0) return [NSData new];
+	NSMutableString *query = [self _query];
+    if (query.length) {
+        [query deleteCharactersInRange:NSMakeRange(0, 1)];
+    }
+	return [query dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (NSData*)JSONData
@@ -181,9 +190,8 @@ static void visit(Visitor visitor, NSString *name, id value)
 {
 	if (params.count == 0) return url;
 	BOOL haveParams = [[url absoluteString] rangeOfString:@"?"].length > 0;
-	NSMutableString *queryString = (NSMutableString*)self.queryString;
-	[queryString replaceCharactersInRange:NSMakeRange(0, 1) withString:haveParams ? @"&" : @"?"];
-	return [NSURL URLWithString:queryString relativeToURL:url];
+    NSString *query = haveParams ? [self _query] : self.queryString;
+	return [NSURL URLWithString:query relativeToURL:url];
 }
 
 @end
