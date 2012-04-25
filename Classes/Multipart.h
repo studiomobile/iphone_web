@@ -7,8 +7,11 @@
 
 @interface Multipart : NSObject
 @property (nonatomic, strong, readonly) NSString *boundary;
+@property (nonatomic, strong, readonly) NSString *contentType;
 
 - (id)initWithBoundary:(NSString*)boundary;
+
++ (NSString*)contentTypeWithBoundary:(NSString*)boundary;
 
 - (void)appendName:(NSString*)name value:(id)value;
 - (void)appendName:(NSString*)name fileUpload:(FileUpload*)upload;

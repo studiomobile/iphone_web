@@ -25,6 +25,16 @@
     return self;
 }
 
++ (NSString*)contentTypeWithBoundary:(NSString*)boundary
+{
+    return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+}
+
+- (NSString*)contentType
+{
+    return [[self class] contentTypeWithBoundary:boundary];
+}
+
 - (void)appendContentName:(NSString*)name filename:(NSString*)filename contentType:(NSString*)contentType data:(NSData*)data
 {
     if (!mdata) {

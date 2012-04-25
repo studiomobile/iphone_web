@@ -33,7 +33,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 @implementation WebParams {
 	NSMutableDictionary *params;
-    NSString *boundary;
+    NSString *_boundary;
 }
 @synthesize multipart;
 
@@ -59,9 +59,6 @@ static void visit(Visitor visitor, NSString *name, id value)
 {
     if (self = [super init]) {
         params = [NSMutableDictionary new];
-        CFUUIDRef uuid = CFUUIDCreate(NULL);
-        boundary = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
-        CFRelease(uuid);
         for (id name in dictionary) {
             [self addObject:[dictionary objectForKey:name] forKey:name];
         }
@@ -77,6 +74,16 @@ static void visit(Visitor visitor, NSString *name, id value)
 - (NSString*)description
 {
     return [NSString stringWithFormat:@"<%@: %@>", NSStringFromClass(self.class), params];
+}
+
+- (NSString*)boundary
+{
+    if (!_boundary) {
+        CFUUIDRef uuid = CFUUIDCreate(NULL);
+        _boundary = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+        CFRelease(uuid);
+    }
+    return _boundary;
 }
 
 - (void)_each:(Visitor)visitor
@@ -137,7 +144,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSString*)jsonContentType { return @"application/json"; }
 - (NSString*)formContentType { return @"application/x-www-form-urlencoded"; }
-- (NSString*)multipartContentType { return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]; }
+- (NSString*)multipartContentType { return [Multipart contentTypeWithBoundary:self.boundary]; }
 - (NSString*)postContentType { return multipart ? self.multipartContentType : self.formContentType; }
 
 - (NSData*)postData
@@ -147,7 +154,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)multipartData
 {
-    Multipart *multi = [[Multipart alloc] initWithBoundary:boundary];
+    Multipart *multi = [[Multipart alloc] initWithBoundary:self.boundary];
     [self _each:^(NSString *name, id value) {
         [multi appendName:name value:value];
     }];
