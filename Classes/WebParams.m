@@ -26,7 +26,7 @@ static void visit(Visitor visitor, NSString *name, id value)
         for (id v in value) {
             visit(visitor, name, v);
         }
-    } else {
+    } else if (value) {
         visitor(name, value);
     }
 }
@@ -106,15 +106,17 @@ static void visit(Visitor visitor, NSString *name, id value)
         multipart |= IS_FILEUPLOAD(value);
         [values addObject:value];
     }, key, obj);
-    if (![params objectForKey:key]) {
-        [params setObject:values.count > 1 ? values : [values lastObject] forKey:key];
-        return;
-    }
+    if (!values.count) return;
 	NSMutableArray *container = [params objectForKey:key];
-    if (![container isKindOfClass:[NSArray class]]) {
-        container = [NSMutableArray arrayWithObject:container];
+    if (container) {
+        if (![container isKindOfClass:[NSMutableArray class]]) {
+            container = [NSMutableArray arrayWithObject:container];
+        }
+        [container addObjectsFromArray:values];
+    } else {
+        id value = values.count > 1 ? values : [values lastObject];
+        [params setObject:value forKey:key];
     }
-    [container addObjectsFromArray:values];
 }
 
 - (NSString*)queryString
