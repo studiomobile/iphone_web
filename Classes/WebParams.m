@@ -160,6 +160,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)multipartData
 {
+	if (params.count == 0) return [NSData new];
     Multipart *multi = [[Multipart alloc] initWithBoundary:self.boundary];
     [self _each:^(NSString *name, id value) {
         [multi appendName:name value:value];
@@ -179,6 +180,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)JSONData
 {
+	if (params.count == 0) return [NSData new];
     BOOL canSerialize = [params respondsToSelector:@selector(JSONData)];
     if (!canSerialize) {
         NSLog(@"WARNING: class %@ should respond to selector `JSONData`, meanwhile returning nil...", NSStringFromClass([params class]));
