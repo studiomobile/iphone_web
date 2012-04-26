@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
+		B44EE52E15494225004FEA7D /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = B44EE52C15494225004FEA7D /* Reachability.h */; };
+		B44EE52F15494225004FEA7D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
+		B44EE5321549423E004FEA7D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44EE5311549423E004FEA7D /* SystemConfiguration.framework */; };
 		B462AE871292D9E2008A8ECC /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = B462AE851292D9E2008A8ECC /* NSData+Base64.h */; };
 		B462AE881292D9E2008A8ECC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
 		B483A3D114EBE8AB00E1FC5A /* FileUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3CD14EBE8AB00E1FC5A /* FileUpload.h */; };
@@ -22,6 +25,9 @@
 
 /* Begin PBXFileReference section */
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B44EE52C15494225004FEA7D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		B44EE52D15494225004FEA7D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		B44EE5311549423E004FEA7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B462AE851292D9E2008A8ECC /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		B462AE861292D9E2008A8ECC /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		B483A3CD14EBE8AB00E1FC5A /* FileUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUpload.h; sourceTree = "<group>"; };
@@ -40,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B44EE5321549423E004FEA7D /* SystemConfiguration.framework in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,6 +75,7 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B44EE5311549423E004FEA7D /* SystemConfiguration.framework */,
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -76,6 +84,8 @@
 		B45995F51248D9B90055E86E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B44EE52C15494225004FEA7D /* Reachability.h */,
+				B44EE52D15494225004FEA7D /* Reachability.m */,
 				B462AE851292D9E2008A8ECC /* NSData+Base64.h */,
 				B462AE861292D9E2008A8ECC /* NSData+Base64.m */,
 				B483A3D914EBE95C00E1FC5A /* WebParams.h */,
@@ -102,6 +112,7 @@
 				B483A3D714EBE8FA00E1FC5A /* Multipart.h in Headers */,
 				B483A3DB14EBE95C00E1FC5A /* WebParams.h in Headers */,
 				B4A1503914F79D1A0053C3C1 /* URLRequestExecutor.h in Headers */,
+				B44EE52E15494225004FEA7D /* Reachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +174,7 @@
 				B483A3D814EBE8FA00E1FC5A /* Multipart.m in Sources */,
 				B483A3DC14EBE95C00E1FC5A /* WebParams.m in Sources */,
 				B4A1503A14F79D1A0053C3C1 /* URLRequestExecutor.m in Sources */,
+				B44EE52F15494225004FEA7D /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
