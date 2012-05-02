@@ -10,12 +10,12 @@
 
 static NSString *encodeQueryField(id value)
 {
-    return (__bridge_transfer NSString*)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)[value description], NULL, CFSTR("\"%;/?:@&=+$,[]#!'()*"), kCFStringEncodingUTF8);
+    return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)[value description], NULL, CFSTR("\"%;/?:@&=+$,[]#!'()*"), kCFStringEncodingUTF8));
 }
 
 static NSString *decodeQueryField(NSString *field)
 {
-    return (__bridge_transfer NSString*)CFURLCreateStringByReplacingPercentEscapes(NULL, (__bridge CFStringRef)field, CFSTR(""));
+    return CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapes(NULL, (__bridge CFStringRef)field, CFSTR("")));
 }
 
 typedef void (^Visitor)(NSString *name, id value, int depth);
@@ -26,9 +26,9 @@ static void visitDepth(Visitor visitor, NSString *name, id value, int depth)
         for (id v in value) {
             visitDepth(visitor, name, v, depth + 1);
         }
-    } else {
+    } else if (value) {
         visitor(name, value, depth);
-    }
+    } 
 }
 
 static void visit(Visitor visitor, NSString *name, id value)
@@ -38,7 +38,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 @implementation WebParams {
 	NSMutableDictionary *params;
-    NSString *boundary;
+    NSString *_boundary;
 }
 @synthesize multipart;
 
@@ -62,11 +62,8 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         params = [NSMutableDictionary new];
-        CFUUIDRef uuid = CFUUIDCreate(NULL);
-        boundary = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
-        CFRelease(uuid);
         for (id name in dictionary) {
             [self addObject:[dictionary objectForKey:name] forKey:name];
         }
@@ -82,6 +79,16 @@ static void visit(Visitor visitor, NSString *name, id value)
 - (NSString*)description
 {
     return [NSString stringWithFormat:@"<%@: %@>", NSStringFromClass(self.class), params];
+}
+
+- (NSString*)boundary
+{
+    if (!_boundary) {
+        CFUUIDRef uuid = CFUUIDCreate(NULL);
+        _boundary = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+        CFRelease(uuid);
+    }
+    return _boundary;
 }
 
 - (void)_each:(Visitor)visitor
@@ -111,42 +118,47 @@ static void visit(Visitor visitor, NSString *name, id value)
         multipart |= IS_FILEUPLOAD(value);
         [values addObject:value];
     }, key, obj);
-    if (!values.count) {
-        return;
-    }
-    if (![params objectForKey:key]) {
-        [params setObject:values.count > 1 ? values : [values lastObject] forKey:key];
-        return;
-    }
+    if (!values.count) return;
 	NSMutableArray *container = [params objectForKey:key];
-    if (![container isKindOfClass:[NSArray class]]) {
-        container = [NSMutableArray arrayWithObject:container];
+    if (container) {
+        if (![container isKindOfClass:[NSMutableArray class]]) {
+            container = [NSMutableArray arrayWithObject:container];
+        }
+        [container addObjectsFromArray:values];
+    } else {
+        id value = values.count > 1 ? values : [values lastObject];
+        [params setObject:value forKey:key];
     }
-    [container addObjectsFromArray:values];
+}
+
+- (NSMutableString*)_query
+{
+	NSMutableString *query = [NSMutableString string];
+    [self _each:^(NSString *name, id value, int depth) {
+        if (IS_FILEUPLOAD(value)) return;
+        [query appendString:@"&"];
+        [query appendString:encodeQueryField(name)];
+        while (depth--) {
+            [query appendString:@"[]"];
+        }
+        [query appendString:@"="];
+        [query appendString:encodeQueryField(value)];
+    }];
+	return query;
 }
 
 - (NSString*)queryString
 {
-	NSMutableString *queryString = [NSMutableString string];
-    [self _each:^(NSString *name, id value, int depth) {
-        if (IS_FILEUPLOAD(value)) return;
-        [queryString appendString:@"&"];
-        [queryString appendString:encodeQueryField(name)];
-        while (depth--) {
-            [queryString appendString:@"[]"];
-        }
-        [queryString appendString:@"="];
-        [queryString appendString:encodeQueryField(value)];
-    }];
-	if (queryString.length) {
-		[queryString replaceCharactersInRange:NSMakeRange(0, 1) withString:@"?"];
+    NSMutableString *query = [self _query];
+	if (query.length) {
+		[query replaceCharactersInRange:NSMakeRange(0, 1) withString:@"?"];
 	}
-	return queryString;
+    return query;
 }
 
 - (NSString*)jsonContentType { return @"application/json"; }
 - (NSString*)formContentType { return @"application/x-www-form-urlencoded"; }
-- (NSString*)multipartContentType { return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]; }
+- (NSString*)multipartContentType { return [Multipart contentTypeWithBoundary:self.boundary]; }
 - (NSString*)postContentType { return multipart ? self.multipartContentType : self.formContentType; }
 
 - (NSData*)postData
@@ -156,7 +168,8 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)multipartData
 {
-    Multipart *multi = [[Multipart alloc] initWithBoundary:boundary];
+	if (params.count == 0) return [NSData new];
+    Multipart *multi = [[Multipart alloc] initWithBoundary:self.boundary];
     [self _each:^(NSString *name, id value, int depth) {
         [multi appendName:name value:value];
     }];
@@ -165,13 +178,17 @@ static void visit(Visitor visitor, NSString *name, id value)
 
 - (NSData*)formData
 {
-	NSMutableString *queryString = (NSMutableString*)self.queryString;
-	[queryString deleteCharactersInRange:NSMakeRange(0, 1)];
-	return [queryString dataUsingEncoding:NSUTF8StringEncoding];
+	if (params.count == 0) return [NSData new];
+	NSMutableString *query = [self _query];
+    if (query.length) {
+        [query deleteCharactersInRange:NSMakeRange(0, 1)];
+    }
+	return [query dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (NSData*)JSONData
 {
+	if (params.count == 0) return [NSData new];
     BOOL canSerialize = [params respondsToSelector:@selector(JSONData)];
     if (!canSerialize) {
         NSLog(@"WARNING: class %@ should respond to selector `JSONData`, meanwhile returning nil...", NSStringFromClass([params class]));
@@ -183,9 +200,8 @@ static void visit(Visitor visitor, NSString *name, id value)
 {
 	if (params.count == 0) return url;
 	BOOL haveParams = [[url absoluteString] rangeOfString:@"?"].length > 0;
-	NSMutableString *queryString = (NSMutableString*)self.queryString;
-	[queryString replaceCharactersInRange:NSMakeRange(0, 1) withString:haveParams ? @"&" : @"?"];
-	return [NSURL URLWithString:queryString relativeToURL:url];
+    NSString *query = haveParams ? [self _query] : self.queryString;
+	return [NSURL URLWithString:query relativeToURL:url];
 }
 
 @end
