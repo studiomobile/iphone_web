@@ -18,17 +18,22 @@ static NSString *decodeQueryField(NSString *field)
     return (__bridge_transfer NSString*)CFURLCreateStringByReplacingPercentEscapes(NULL, (__bridge CFStringRef)field, CFSTR(""));
 }
 
-typedef void (^Visitor)(NSString *name, id value);
+typedef void (^Visitor)(NSString *name, id value, int depth);
 
-static void visit(Visitor visitor, NSString *name, id value)
+static void visitDepth(Visitor visitor, NSString *name, id value, int depth)
 {
     if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) {
         for (id v in value) {
-            visit(visitor, name, v);
+            visitDepth(visitor, name, v, depth + 1);
         }
     } else {
-        visitor(name, value);
+        visitor(name, value, depth);
     }
+}
+
+static void visit(Visitor visitor, NSString *name, id value)
+{
+    visitDepth(visitor, name, value, 0);
 }
 
 @implementation WebParams {
@@ -101,11 +106,14 @@ static void visit(Visitor visitor, NSString *name, id value)
 {
 	if (!obj) return;
     NSMutableArray *values = [NSMutableArray new];
-    visit(^(NSString *name, id value) {
+    visit(^(NSString *name, id value, int depth) {
         value = [FileUpload wrapDataObject:value name:name];
         multipart |= IS_FILEUPLOAD(value);
         [values addObject:value];
     }, key, obj);
+    if (!values.count) {
+        return;
+    }
     if (![params objectForKey:key]) {
         [params setObject:values.count > 1 ? values : [values lastObject] forKey:key];
         return;
@@ -120,10 +128,13 @@ static void visit(Visitor visitor, NSString *name, id value)
 - (NSString*)queryString
 {
 	NSMutableString *queryString = [NSMutableString string];
-    [self _each:^(NSString *name, id value) {
+    [self _each:^(NSString *name, id value, int depth) {
         if (IS_FILEUPLOAD(value)) return;
         [queryString appendString:@"&"];
         [queryString appendString:encodeQueryField(name)];
+        while (depth--) {
+            [queryString appendString:@"[]"];
+        }
         [queryString appendString:@"="];
         [queryString appendString:encodeQueryField(value)];
     }];
@@ -146,7 +157,7 @@ static void visit(Visitor visitor, NSString *name, id value)
 - (NSData*)multipartData
 {
     Multipart *multi = [[Multipart alloc] initWithBoundary:boundary];
-    [self _each:^(NSString *name, id value) {
+    [self _each:^(NSString *name, id value, int depth) {
         [multi appendName:name value:value];
     }];
 	return [multi getData];
