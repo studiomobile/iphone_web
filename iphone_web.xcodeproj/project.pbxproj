@@ -13,6 +13,19 @@
 		B44EE5321549423E004FEA7D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44EE5311549423E004FEA7D /* SystemConfiguration.framework */; };
 		B462AE871292D9E2008A8ECC /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = B462AE851292D9E2008A8ECC /* NSData+Base64.h */; };
 		B462AE881292D9E2008A8ECC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
+		B4705F09155C2CAB007D7C4D /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = B44EE52C15494225004FEA7D /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4705F0A155C2CAB007D7C4D /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = B462AE851292D9E2008A8ECC /* NSData+Base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4705F0B155C2CAB007D7C4D /* WebParams.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D914EBE95C00E1FC5A /* WebParams.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4705F0C155C2CAB007D7C4D /* Multipart.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D514EBE8FA00E1FC5A /* Multipart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4705F0D155C2CAB007D7C4D /* FileUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3CD14EBE8AB00E1FC5A /* FileUpload.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4705F0E155C2CAB007D7C4D /* URLRequestExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = B4A1503714F79D1A0053C3C1 /* URLRequestExecutor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4705F0F155C2CB5007D7C4D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
+		B4705F10155C2CB5007D7C4D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
+		B4705F11155C2CB5007D7C4D /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3DA14EBE95C00E1FC5A /* WebParams.m */; };
+		B4705F12155C2CB5007D7C4D /* Multipart.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3D614EBE8FA00E1FC5A /* Multipart.m */; };
+		B4705F13155C2CB5007D7C4D /* FileUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3CE14EBE8AB00E1FC5A /* FileUpload.m */; };
+		B4705F14155C2CB5007D7C4D /* URLRequestExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */; };
+		B4705F29155C2FC0007D7C4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4705F28155C2FC0007D7C4D /* SystemConfiguration.framework */; };
 		B483A3D114EBE8AB00E1FC5A /* FileUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3CD14EBE8AB00E1FC5A /* FileUpload.h */; };
 		B483A3D214EBE8AB00E1FC5A /* FileUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3CE14EBE8AB00E1FC5A /* FileUpload.m */; };
 		B483A3D714EBE8FA00E1FC5A /* Multipart.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D514EBE8FA00E1FC5A /* Multipart.h */; };
@@ -25,11 +38,13 @@
 
 /* Begin PBXFileReference section */
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		B44EE5311549423E004FEA7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B44EE52C15494225004FEA7D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B44EE52D15494225004FEA7D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		B44EE5311549423E004FEA7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B462AE851292D9E2008A8ECC /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		B462AE861292D9E2008A8ECC /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		B4705EEA155C2C20007D7C4D /* MacWeb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacWeb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4705F28155C2FC0007D7C4D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		B483A3CD14EBE8AB00E1FC5A /* FileUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUpload.h; sourceTree = "<group>"; };
 		B483A3CE14EBE8AB00E1FC5A /* FileUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUpload.m; sourceTree = "<group>"; };
 		B483A3D514EBE8FA00E1FC5A /* Multipart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Multipart.h; sourceTree = "<group>"; };
@@ -42,6 +57,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B4705EE6155C2C20007D7C4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4705F29155C2FC0007D7C4D /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC07C0554694100DB518D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				D2AAC07E0554694100DB518D /* libiphone_web.a */,
+				B4705EEA155C2C20007D7C4D /* MacWeb.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,6 +99,7 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B4705F28155C2FC0007D7C4D /* SystemConfiguration.framework */,
 				B44EE5311549423E004FEA7D /* SystemConfiguration.framework */,
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
 			);
@@ -103,6 +128,19 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		B4705EE7155C2C20007D7C4D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4705F09155C2CAB007D7C4D /* Reachability.h in Headers */,
+				B4705F0A155C2CAB007D7C4D /* NSData+Base64.h in Headers */,
+				B4705F0B155C2CAB007D7C4D /* WebParams.h in Headers */,
+				B4705F0C155C2CAB007D7C4D /* Multipart.h in Headers */,
+				B4705F0D155C2CAB007D7C4D /* FileUpload.h in Headers */,
+				B4705F0E155C2CAB007D7C4D /* URLRequestExecutor.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC07A0554694100DB518D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -119,6 +157,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		B4705EE9155C2C20007D7C4D /* MacWeb */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4705EFD155C2C20007D7C4D /* Build configuration list for PBXNativeTarget "MacWeb" */;
+			buildPhases = (
+				B4705EE5155C2C20007D7C4D /* Sources */,
+				B4705EE6155C2C20007D7C4D /* Frameworks */,
+				B4705EE7155C2C20007D7C4D /* Headers */,
+				B4705EE8155C2C20007D7C4D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacWeb;
+			productName = MacWeb;
+			productReference = B4705EEA155C2C20007D7C4D /* MacWeb.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		D2AAC07D0554694100DB518D /* iphone_web */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "iphone_web" */;
@@ -153,6 +209,7 @@
 				Japanese,
 				French,
 				German,
+				en,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* iphone_web */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -160,11 +217,35 @@
 			projectRoot = "";
 			targets = (
 				D2AAC07D0554694100DB518D /* iphone_web */,
+				B4705EE9155C2C20007D7C4D /* MacWeb */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		B4705EE8155C2C20007D7C4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		B4705EE5155C2C20007D7C4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4705F0F155C2CB5007D7C4D /* Reachability.m in Sources */,
+				B4705F10155C2CB5007D7C4D /* NSData+Base64.m in Sources */,
+				B4705F11155C2CB5007D7C4D /* WebParams.m in Sources */,
+				B4705F12155C2CB5007D7C4D /* Multipart.m in Sources */,
+				B4705F13155C2CB5007D7C4D /* FileUpload.m in Sources */,
+				B4705F14155C2CB5007D7C4D /* URLRequestExecutor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC07B0554694100DB518D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -241,6 +322,70 @@
 			};
 			name = Release;
 		};
+		B4705EFB155C2C20007D7C4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		B4705EFC155C2C20007D7C4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -258,6 +403,15 @@
 			buildConfigurations = (
 				1DEB922308733DC00010E9CD /* Debug */,
 				1DEB922408733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4705EFD155C2C20007D7C4D /* Build configuration list for PBXNativeTarget "MacWeb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4705EFB155C2C20007D7C4D /* Debug */,
+				B4705EFC155C2C20007D7C4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

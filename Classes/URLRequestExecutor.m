@@ -64,6 +64,7 @@
     flags.handleRedirect = [delegate respondsToSelector:@selector(requestExecutor:didReceiveRedirectResponse:willSendRequest:)];
 }
 
+#if TARGET_OS_IPHONE
 - (NSURLRequest*)originalRequest
 {
     return connection.originalRequest;
@@ -73,6 +74,7 @@
 {
     return connection.currentRequest;
 }
+#endif
 
 - (void)start
 {
