@@ -9,8 +9,8 @@
 
 @interface URLRequestExecutor : NSObject
 @property (nonatomic, unsafe_unretained) id<URLRequestExecutorDelegate> delegate;
-#if TARGET_OS_IPHONE
 @property (nonatomic, strong, readonly) NSURLRequest* originalRequest;
+#if TARGET_OS_IPHONE
 @property (nonatomic, strong, readonly) NSURLRequest* currentRequest;
 #endif
 @property (nonatomic, strong, readonly) NSURLResponse* response;

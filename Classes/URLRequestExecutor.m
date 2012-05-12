@@ -21,6 +21,9 @@
 
 @implementation URLRequestExecutor {
     URLRequestExecutor_ConnectionProxy *proxy;
+#if TARGET_OS_MAC
+    NSURLRequest *originalRequest;
+#endif
     NSURLConnection *connection;
     NSMutableData *data;
     struct {
@@ -42,6 +45,9 @@
     if (self = [super init]) {
         proxy = [URLRequestExecutor_ConnectionProxy new];
         proxy.delegate = self;
+#if TARGET_OS_MAC
+        originalRequest = req;
+#endif
         connection = [[NSURLConnection alloc] initWithRequest:req delegate:proxy startImmediately:NO];
         [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
@@ -64,12 +70,16 @@
     flags.handleRedirect = [delegate respondsToSelector:@selector(requestExecutor:didReceiveRedirectResponse:willSendRequest:)];
 }
 
-#if TARGET_OS_IPHONE
 - (NSURLRequest*)originalRequest
 {
+#if TARGET_OS_MAC
+    return originalRequest;
+#else
     return connection.originalRequest;
+#endif
 }
 
+#if TARGET_OS_IPHONE
 - (NSURLRequest*)currentRequest
 {
     return connection.currentRequest;
