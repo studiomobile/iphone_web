@@ -11,6 +11,10 @@
 		B44EE52E15494225004FEA7D /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = B44EE52C15494225004FEA7D /* Reachability.h */; };
 		B44EE52F15494225004FEA7D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
 		B44EE5321549423E004FEA7D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44EE5311549423E004FEA7D /* SystemConfiguration.framework */; };
+		B45CF6CA157EA09500753C99 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B45CF6C8157EA09500753C99 /* ImageCache.h */; };
+		B45CF6CB157EA09500753C99 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B45CF6C8157EA09500753C99 /* ImageCache.h */; };
+		B45CF6CC157EA09500753C99 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CF6C9157EA09500753C99 /* ImageCache.m */; };
+		B45CF6CD157EA09500753C99 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CF6C9157EA09500753C99 /* ImageCache.m */; };
 		B462AE871292D9E2008A8ECC /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = B462AE851292D9E2008A8ECC /* NSData+Base64.h */; };
 		B462AE881292D9E2008A8ECC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
 		B483A3D114EBE8AB00E1FC5A /* FileUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3CD14EBE8AB00E1FC5A /* FileUpload.h */; };
@@ -34,6 +38,8 @@
 		B44EE52C15494225004FEA7D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B44EE52D15494225004FEA7D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		B44EE5311549423E004FEA7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B45CF6C8157EA09500753C99 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
+		B45CF6C9157EA09500753C99 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		B462AE851292D9E2008A8ECC /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		B462AE861292D9E2008A8ECC /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		B4705F28155C2FC0007D7C4D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
@@ -101,6 +107,8 @@
 		B45995F51248D9B90055E86E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B45CF6C8157EA09500753C99 /* ImageCache.h */,
+				B45CF6C9157EA09500753C99 /* ImageCache.m */,
 				B44EE52C15494225004FEA7D /* Reachability.h */,
 				B44EE52D15494225004FEA7D /* Reachability.m */,
 				B462AE851292D9E2008A8ECC /* NSData+Base64.h */,
@@ -124,6 +132,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B45CF6CB157EA09500753C99 /* ImageCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +146,7 @@
 				B483A3DB14EBE95C00E1FC5A /* WebParams.h in Headers */,
 				B4A1503914F79D1A0053C3C1 /* URLRequestExecutor.h in Headers */,
 				B44EE52E15494225004FEA7D /* Reachability.h in Headers */,
+				B45CF6CA157EA09500753C99 /* ImageCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,7 +193,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "iphone_web" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -218,6 +228,7 @@
 				B48FA1B5155E663900A8597D /* URLRequestExecutor.m in Sources */,
 				B48FA1BC155E667D00A8597D /* Multipart.m in Sources */,
 				B48FA1B4155E663600A8597D /* FileUpload.m in Sources */,
+				B45CF6CD157EA09500753C99 /* ImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +242,7 @@
 				B483A3DC14EBE95C00E1FC5A /* WebParams.m in Sources */,
 				B4A1503A14F79D1A0053C3C1 /* URLRequestExecutor.m in Sources */,
 				B44EE52F15494225004FEA7D /* Reachability.m in Sources */,
+				B45CF6CC157EA09500753C99 /* ImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -288,6 +301,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -324,7 +338,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -349,7 +363,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -381,6 +395,7 @@
 				B48FA1AE155E660E00A8597D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
