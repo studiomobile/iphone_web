@@ -207,6 +207,7 @@ static NSString* genFileName(NSString *dir);
 @synthesize mtime;
 @synthesize filename;
 @synthesize image;
+@synthesize holder;
 
 - (id)initWithFileName:(NSString*)fileName
 {
