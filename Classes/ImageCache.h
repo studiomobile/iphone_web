@@ -5,11 +5,17 @@
 #import <Foundation/Foundation.h>
 
 #if TARGET_OS_IPHONE
+
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #define IMAGE UIImage
+
 #else
+
 #import <Cocoa/Cocoa.h>
+#import <CoreServices/CoreServices.h>
 #define IMAGE NSImage
+
 #endif
 
 @class ImageCache;

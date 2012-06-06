@@ -10,7 +10,7 @@
 @property (nonatomic, copy) ImageCacheErrback errback;
 @end
 
-@interface ExecutorHolder : NSObject
+@interface DownloadState : NSObject
 @property (nonatomic, strong) URLRequestExecutor *exec;
 @property (nonatomic, strong) NSMutableArray *callbacks;
 @property (nonatomic, strong) NSOutputStream *stream;
@@ -20,17 +20,23 @@
 @property (nonatomic, strong, readonly) NSString *filename;
 @property (nonatomic, strong) NSString *etag;
 @property (nonatomic, strong) NSString *mtime;
-@property (nonatomic, strong) IMAGE *image;
-@property (nonatomic, strong) ExecutorHolder *holder;
+@property (nonatomic, strong) DownloadState *state;
 
 - (id)initWithFileName:(NSString*)fileName;
 
-- (IMAGE*)loadImageFromDir:(NSString*)dir hold:(BOOL)hold;
+- (void)fillInRequest:(NSMutableURLRequest*)req;
+- (void)handleResponse:(NSHTTPURLResponse*)res dir:(NSString*)dir;
+
+- (IMAGE*)getImageFrom:(NSString*)dir hold:(BOOL)hold;
+- (BOOL)updateImageData:(NSData*)data dir:(NSString*)dir hold:(BOOL)hold;
+- (void)clearImage;
 
 @end
 
-static NSString* pathForInfo(CacheInfo *info, NSString *dir);
-static NSString* genFileName(NSString *dir);
+static NSString* imagePath(CacheInfo *info, NSString *dir)
+{
+    return info.filename.length ? [dir stringByAppendingPathComponent:info.filename] : nil;
+}
 
 @interface ImageCache () <URLRequestExecutorDelegate>
 @property (atomic, assign) BOOL dirty;
@@ -55,15 +61,14 @@ static NSString* genFileName(NSString *dir);
 {
     if (self = [super init]) {
         NSError *error = nil;
-        NSFileManager *fm = [NSFileManager new];
-        BOOL done = [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+        BOOL done = [[NSFileManager new] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
         if (!done) {
             NSLog(@"Failed to create image cache directory: %@", error);
             return nil;
         }
         dir = path;
         cacheFilename = [dir stringByAppendingPathComponent:@"cache.data"];
-        NSDictionary *data = [NSDictionary dictionaryWithContentsOfFile:cacheFilename];
+        NSDictionary *data = [NSKeyedUnarchiver unarchiveObjectWithFile:cacheFilename];
         if ([data isKindOfClass:[NSDictionary class]]) {
             cache = [data mutableCopy];
         } else {
@@ -73,68 +78,65 @@ static NSString* genFileName(NSString *dir);
     return self;
 }
 
-- (CacheInfo*)_createInfoForURL:(NSURL*)url
+- (void)dealloc
 {
-    CacheInfo *info = [[CacheInfo alloc] initWithFileName:genFileName(dir)];
-    [cache setObject:info forKey:url];
-    self.dirty = YES;
-    return info;
+    if (self.dirty) {
+        [NSKeyedArchiver archiveRootObject:cache toFile:cacheFilename];
+    }
 }
 
-- (void)_startExecWithURL:(NSURL*)url info:(CacheInfo*)info callbacks:(Callbacks*)callbacks
+- (CacheInfo*)_getInfoForURL:(NSURL*)url
 {
-    ExecutorHolder *holder = info.holder;
-    if (!holder) {
-        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-        if (info.etag)  [req addValue:info.etag  forHTTPHeaderField:@"If-None-Match"];
-        if (info.mtime) [req addValue:info.mtime forHTTPHeaderField:@"If-Modified-Since"];
-        holder = [ExecutorHolder new];
-        holder.callbacks = [NSMutableArray new];
-        holder.exec = [[URLRequestExecutor alloc] initWithRequest:req];
-        holder.exec.delegate = self;
-        [holder.exec start];
-        info.holder = holder;
+    url = [url absoluteURL];
+    CacheInfo *info = [cache objectForKey:url];
+    if (!info) {
+        CFUUIDRef uuid = CFUUIDCreate(NULL);
+        NSString *fileName = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
+        CFRelease(uuid);
+        info = [[CacheInfo alloc] initWithFileName:fileName];
+        [cache setObject:info forKey:url];
+        self.dirty = YES;
     }
-    [holder.callbacks addObject:callbacks];
+    return info;
 }
 
 - (IMAGE*)imageWithURL:(NSURL*)url callback:(ImageCacheCallback)callback errback:(ImageCacheErrback)errback
 {
-    CacheInfo *info = [cache objectForKey:url];
-    if (!info) {
-        info = [self _createInfoForURL:url];
-    }
-    IMAGE *image = info.image;
-    if (!image) {
-        image = [info loadImageFromDir:dir hold:holdImagesInMemory];
-    }
+    CacheInfo *info = [self _getInfoForURL:url];
+    DownloadState *state = info.state;
     Callbacks *callbacks = [Callbacks new];
     callbacks.callback = callback;
     callbacks.errback = errback;
-    [self _startExecWithURL:url info:info callbacks:callbacks];
-    return image;
+    if (!state) {
+        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+        [info fillInRequest:req];
+        state = [DownloadState new];
+        state.callbacks = [NSMutableArray new];
+        state.exec = [[URLRequestExecutor alloc] initWithRequest:req];
+        state.exec.delegate = self;
+        [state.exec start];
+        info.state = state;
+    }
+    [state.callbacks addObject:callbacks];
+    return [info getImageFrom:dir hold:holdImagesInMemory];
 }
 
 - (BOOL)updateImageData:(NSData*)data forURL:(NSURL*)url;
 {
-    CacheInfo *info = [cache objectForKey:url];
-    if (!info) {
-        info = [self _createInfoForURL:url];
-    }
-    info.etag = nil;
-    info.mtime = nil;
+    CacheInfo *info = [self _getInfoForURL:url];
     self.dirty = YES;
-    return [data writeToFile:pathForInfo(info, dir) atomically:NO];
+    return [info updateImageData:data dir:dir hold:holdImagesInMemory];
 }
 
 - (BOOL)removeImageWithURL:(NSURL*)url
 {
+    url = [url absoluteURL];
     CacheInfo *info = [cache objectForKey:url];
-    [cache removeObjectForKey:url];
     if (info != nil) {
+        [cache removeObjectForKey:url];
         self.dirty = YES;
     }
-    NSString *path = pathForInfo(info, dir);
+    NSString *path = imagePath(info, dir);
     return path ? [[NSFileManager new] removeItemAtPath:path error:nil] : NO;
 }
 
@@ -143,14 +145,14 @@ static NSString* genFileName(NSString *dir);
     NSFileManager *fm = [NSFileManager new];
     [fm removeItemAtPath:dir error:nil];
     cache = [NSMutableDictionary new];
-    self.dirty = YES;
+    self.dirty = NO;
     return [fm createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
 }
 
 - (void)freeMemory
 {
     for (CacheInfo *info in cache.objectEnumerator) {
-        info.image = nil;
+        [info clearImage];
     }
 }
 
@@ -160,18 +162,16 @@ static NSString* genFileName(NSString *dir);
 {
     NSURL *url = executor.originalRequest.URL;
     CacheInfo *info = [cache objectForKey:url];
-    ExecutorHolder *holder = info.holder;
-    info.holder = nil;
+    NSArray *callbacks = info.state.callbacks;
+    info.state = nil;
     if (response.statusCode == 304) return;
-    NSDictionary *headers = [response allHeaderFields];
-    info.etag  = [headers objectForKey:@"ETag"];
-    info.mtime = [headers objectForKey:@"Last-Modified"];
-    self.dirty = ![cache writeToFile:cacheFilename atomically:NO];
-    IMAGE *image = [info loadImageFromDir:dir hold:holdImagesInMemory];
+    [info handleResponse:response dir:dir];
+    self.dirty = ![NSKeyedArchiver archiveRootObject:cache toFile:cacheFilename];
+    IMAGE *image = [info getImageFrom:dir hold:holdImagesInMemory];
     if (image) {
-        for (Callbacks *callbacks in holder.callbacks) {
-            if (callbacks.callback) {
-                callbacks.callback(self, url, image);
+        for (Callbacks *cb in callbacks) {
+            if (cb.callback) {
+                cb.callback(self, url, image);
             }
         }
     }
@@ -179,10 +179,13 @@ static NSString* genFileName(NSString *dir);
 
 - (void)requestExecutor:(URLRequestExecutor*)executor didReceiveDataChunk:(NSData*)data
 {
-    CacheInfo *info = [cache objectForKey:executor.originalRequest.URL];
-    NSOutputStream *stream = info.holder.stream;
-    if (!stream && info.holder) {
-        stream = info.holder.stream = [NSOutputStream outputStreamToFileAtPath:pathForInfo(info, dir) append:NO];
+    NSURL *url = executor.originalRequest.URL;
+    CacheInfo *info = [cache objectForKey:url];
+    NSOutputStream *stream = info.state.stream;
+    if (!stream && info.state) {
+        NSString *path = imagePath(info, dir);
+        stream = info.state.stream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+        [stream open];
     }
     [stream write:data.bytes maxLength:data.length];
 }
@@ -191,40 +194,32 @@ static NSString* genFileName(NSString *dir);
 {
     NSURL *url = executor.originalRequest.URL;
     CacheInfo *info = [cache objectForKey:url];
-    ExecutorHolder *holder = info.holder;
-    info.holder = nil;
-    for (Callbacks *callbacks in holder.callbacks) {
-        if (callbacks.errback) {
-            callbacks.errback(self, url, error);
+    NSArray *callbacks = info.state.callbacks;
+    info.state = nil;
+    for (Callbacks *cb in callbacks) {
+        if (cb.errback) {
+            cb.errback(self, url, error);
         }
     }
 }
 
 @end
 
-@implementation CacheInfo
+
+@implementation CacheInfo {
+    IMAGE *image;
+}
 @synthesize etag;
 @synthesize mtime;
 @synthesize filename;
-@synthesize image;
-@synthesize holder;
+@synthesize state;
 
 - (id)initWithFileName:(NSString*)fileName
 {
     if (self = [super init]) {
-        filename = filename;
+        filename = fileName;
     }
     return self;
-}
-
-- (IMAGE*)loadImageFromDir:(NSString*)dir hold:(BOOL)hold
-{
-    NSString *path = pathForInfo(self, dir);
-    IMAGE *_image = path ? [[IMAGE alloc] initWithContentsOfFile:path] : nil;
-    if (hold) {
-        image = _image;
-    }
-    return _image;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -243,9 +238,67 @@ static NSString* genFileName(NSString *dir);
     [coder encodeObject:mtime forKey:@"m"];
     [coder encodeObject:filename forKey:@"f"];
 }
+
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"<%@: file:%@, etag:%@, mtime:%@>", NSStringFromClass(self.class), filename, etag, mtime];
+}
+
+- (void)fillInRequest:(NSMutableURLRequest*)req
+{
+    if (etag)  [req addValue:etag  forHTTPHeaderField:@"If-None-Match"];
+    if (mtime) [req addValue:mtime forHTTPHeaderField:@"If-Modified-Since"];
+}
+
+- (void)handleResponse:(NSHTTPURLResponse*)res dir:(NSString*)dir
+{
+    NSDictionary *headers = [res allHeaderFields];
+    etag  = [headers objectForKey:@"ETag"];
+    mtime = [headers objectForKey:@"Last-Modified"];
+    image = nil;
+
+    if (res.MIMEType) {
+        NSString *uti = CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)res.MIMEType, NULL));
+        if (uti) {
+            NSString *ext = CFBridgingRelease(UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)uti, kUTTagClassFilenameExtension));
+            if (ext && ![ext isEqualToString:filename.pathExtension]) {
+                NSString *new  = [[filename stringByDeletingPathExtension] stringByAppendingPathExtension:ext];
+                NSString *from = [dir stringByAppendingPathComponent:filename];
+                NSString *to   = [dir stringByAppendingPathComponent:new];
+                BOOL moved     = [[NSFileManager new] moveItemAtPath:from toPath:to error:nil];
+                if (moved) filename = new;
+            }
+        }
+    }
+}
+
+- (IMAGE*)getImageFrom:(NSString *)dir hold:(BOOL)hold
+{
+    if (image) return image;
+    NSString *path = [dir stringByAppendingPathComponent:filename];
+    IMAGE *_image = path ? [[IMAGE alloc] initWithContentsOfFile:path] : nil;
+    return hold ? image = _image : _image;
+}
+
+- (BOOL)updateImageData:(NSData*)data dir:(NSString*)dir hold:(BOOL)hold
+{
+    NSString *path = [dir stringByAppendingPathComponent:filename];
+    BOOL written = [data writeToFile:path atomically:NO];
+    if (!written) return NO;
+    etag = nil;
+    mtime = nil;
+    image = hold ? [[IMAGE alloc] initWithData:data] : nil;
+    return YES;
+}
+
+- (void)clearImage
+{
+    image = nil;
+}
+
 @end
 
-@implementation ExecutorHolder
+@implementation DownloadState
 @synthesize exec;
 @synthesize stream;
 @synthesize callbacks;
@@ -255,23 +308,3 @@ static NSString* genFileName(NSString *dir);
 @synthesize callback;
 @synthesize errback;
 @end
-
-
-NSString* pathForInfo(CacheInfo *info, NSString *dir)
-{
-    return info.filename.length ? [dir stringByAppendingPathComponent:info.filename] : nil;
-}
-
-NSString* genFileName(NSString *dir)
-{
-    NSFileManager *fm = [NSFileManager new];
-    NSString *path;
-    NSString *name;
-    do {
-        CFUUIDRef uuid = CFUUIDCreate(NULL);
-        name = CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
-        CFRelease(uuid);
-        path = [dir stringByAppendingPathComponent:name];
-    } while ([fm fileExistsAtPath:path]);
-    return name;
-}
