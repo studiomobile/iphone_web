@@ -126,7 +126,7 @@ static void visit(Visitor visitor, NSString *name, id value)
         }
         [container addObjectsFromArray:values];
     } else {
-        id value = values.count > 1 ? values : [values lastObject];
+        id value = values.count > 1 || [obj isKindOfClass:[NSArray class]] ? values : [values lastObject];
         [params setObject:value forKey:key];
     }
 }
