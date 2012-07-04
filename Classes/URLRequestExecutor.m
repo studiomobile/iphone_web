@@ -126,11 +126,14 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    if (flags.finishWithResponse) {
-        [delegate requestExecutor:self didFinishWithResponse:self.response];
+    id<URLRequestExecutorDelegate> d = self.delegate;
+    NSURLResponse *r = flags.finishWithResponse ? self.response : nil;
+    NSData *dt = flags.finishWithData ? data : nil;
+    if (r) {
+        [d requestExecutor:self didFinishWithResponse:r];
     }
-    if (flags.finishWithData) {
-        [delegate requestExecutor:self didFinishWithData:data];
+    if (dt) {
+        [d requestExecutor:self didFinishWithData:dt];
     }
 }
 
