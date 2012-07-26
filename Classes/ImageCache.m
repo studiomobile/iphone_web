@@ -29,6 +29,7 @@
 
 - (IMAGE*)getImageFrom:(NSString*)dir hold:(BOOL)hold;
 - (BOOL)updateImageData:(NSData*)data dir:(NSString*)dir hold:(BOOL)hold;
+- (void)clearCacheHeaders;
 - (void)clearImage;
 
 @end
@@ -116,9 +117,10 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
     return [info getImageFrom:dir hold:holdImagesInMemory];
 }
 
-- (BOOL)clearImageDataForURL:(NSURL*)url;
+- (void)forceImageToUpdate:(NSURL*)url;
 {
-    return [self updateImageData:nil forURL:url];
+    CacheInfo *info = [self _getInfoForURL:url];
+    [info clearCacheHeaders];
 }
 
 - (BOOL)updateImageData:(NSData*)data forURL:(NSURL*)url;
@@ -287,14 +289,20 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
     NSString *path = [dir stringByAppendingPathComponent:filename];
     BOOL written = [data writeToFile:path atomically:NO];
     if (!written) return NO;
-    etag = nil;
-    mtime = nil;
+    [self clearCacheHeaders];
     image = hold ? [[IMAGE alloc] initWithData:data] : nil;
     return YES;
 }
 
+- (void)clearCacheHeaders
+{
+    etag = nil;
+    mtime = nil;
+}
+
 - (void)clearImage
 {
+    [self clearCacheHeaders];
     image = nil;
 }
 
