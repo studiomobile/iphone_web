@@ -30,6 +30,7 @@ typedef void (^ImageCacheErrback)(ImageCache *cache, NSURL *url, NSError *error)
 
 - (IMAGE*)imageWithURL:(NSURL*)url callback:(ImageCacheCallback)callback errback:(ImageCacheErrback)errback;
 
+- (BOOL)clearImageDataForURL:(NSURL *)url;
 - (BOOL)updateImageData:(NSData*)data forURL:(NSURL*)url;
 
 - (BOOL)removeImageWithURL:(NSURL*)url;

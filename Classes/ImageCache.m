@@ -39,7 +39,6 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
 }
 
 @interface ImageCache () <URLRequestExecutorDelegate>
-@property (atomic, assign) BOOL dirty;
 @end
 
 @implementation ImageCache {
@@ -48,7 +47,6 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
     NSMutableDictionary *cache;
 }
 @synthesize holdImagesInMemory;
-@synthesize dirty=_dirty;
 
 - (id)init
 {
@@ -78,11 +76,9 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
     return self;
 }
 
-- (void)dealloc
+- (void)_persist
 {
-    if (self.dirty) {
-        [NSKeyedArchiver archiveRootObject:cache toFile:cacheFilename];
-    }
+    [NSKeyedArchiver archiveRootObject:cache toFile:cacheFilename];
 }
 
 - (CacheInfo*)_getInfoForURL:(NSURL*)url
@@ -95,7 +91,6 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
         CFRelease(uuid);
         info = [[CacheInfo alloc] initWithFileName:fileName];
         [cache setObject:info forKey:url];
-        self.dirty = YES;
     }
     return info;
 }
@@ -121,11 +116,19 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
     return [info getImageFrom:dir hold:holdImagesInMemory];
 }
 
+- (BOOL)clearImageDataForURL:(NSURL*)url;
+{
+    return [self updateImageData:nil forURL:url];
+}
+
 - (BOOL)updateImageData:(NSData*)data forURL:(NSURL*)url;
 {
     CacheInfo *info = [self _getInfoForURL:url];
-    self.dirty = YES;
-    return [info updateImageData:data dir:dir hold:holdImagesInMemory];
+    BOOL updated = [info updateImageData:data dir:dir hold:holdImagesInMemory];
+    if (updated) {
+        [self _persist];
+    }
+    return updated;
 }
 
 - (BOOL)removeImageWithURL:(NSURL*)url
@@ -134,7 +137,7 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
     CacheInfo *info = [cache objectForKey:url];
     if (info != nil) {
         [cache removeObjectForKey:url];
-        self.dirty = YES;
+        [self _persist];
     }
     NSString *path = imagePath(info, dir);
     return path ? [[NSFileManager new] removeItemAtPath:path error:nil] : NO;
@@ -145,7 +148,6 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
     NSFileManager *fm = [NSFileManager new];
     [fm removeItemAtPath:dir error:nil];
     cache = [NSMutableDictionary new];
-    self.dirty = NO;
     return [fm createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
 }
 
@@ -166,7 +168,7 @@ static NSString* imagePath(CacheInfo *info, NSString *dir)
     info.state = nil;
     if (response.statusCode == 304) return;
     [info handleResponse:response dir:dir];
-    self.dirty = ![NSKeyedArchiver archiveRootObject:cache toFile:cacheFilename];
+    [self _persist];
     IMAGE *image = [info getImageFrom:dir hold:holdImagesInMemory];
     if (image) {
         for (Callbacks *cb in callbacks) {
