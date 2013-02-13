@@ -31,6 +31,30 @@
 		B48FA1BC155E667D00A8597D /* Multipart.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3D614EBE8FA00E1FC5A /* Multipart.m */; };
 		B4A1503914F79D1A0053C3C1 /* URLRequestExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = B4A1503714F79D1A0053C3C1 /* URLRequestExecutor.h */; };
 		B4A1503A14F79D1A0053C3C1 /* URLRequestExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */; };
+		DEB5982216CB98290095F465 /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = B462AE851292D9E2008A8ECC /* NSData+Base64.h */; };
+		DEB5982316CB98290095F465 /* FileUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3CD14EBE8AB00E1FC5A /* FileUpload.h */; };
+		DEB5982416CB98290095F465 /* Multipart.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D514EBE8FA00E1FC5A /* Multipart.h */; };
+		DEB5982516CB98290095F465 /* WebParams.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D914EBE95C00E1FC5A /* WebParams.h */; };
+		DEB5982616CB98290095F465 /* URLRequestExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = B4A1503714F79D1A0053C3C1 /* URLRequestExecutor.h */; };
+		DEB5982716CB98290095F465 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = B44EE52C15494225004FEA7D /* Reachability.h */; };
+		DEB5982816CB98290095F465 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B45CF6C8157EA09500753C99 /* ImageCache.h */; };
+		DEB5982A16CB98290095F465 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
+		DEB5982B16CB98290095F465 /* FileUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3CE14EBE8AB00E1FC5A /* FileUpload.m */; };
+		DEB5982C16CB98290095F465 /* Multipart.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3D614EBE8FA00E1FC5A /* Multipart.m */; };
+		DEB5982D16CB98290095F465 /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3DA14EBE95C00E1FC5A /* WebParams.m */; };
+		DEB5982E16CB98290095F465 /* URLRequestExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */; };
+		DEB5982F16CB98290095F465 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
+		DEB5983016CB98290095F465 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CF6C9157EA09500753C99 /* ImageCache.m */; };
+		DEB5983216CB98290095F465 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44EE5311549423E004FEA7D /* SystemConfiguration.framework */; };
+		DEB5983316CB98290095F465 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
+		DEB5983A16CB983C0095F465 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
+		DEB5983B16CB983C0095F465 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
+		DEB5983C16CB983C0095F465 /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3DA14EBE95C00E1FC5A /* WebParams.m */; };
+		DEB5983D16CB983C0095F465 /* URLRequestExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */; };
+		DEB5983E16CB983C0095F465 /* Multipart.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3D614EBE8FA00E1FC5A /* Multipart.m */; };
+		DEB5983F16CB983C0095F465 /* FileUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3CE14EBE8AB00E1FC5A /* FileUpload.m */; };
+		DEB5984016CB983C0095F465 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CF6C9157EA09500753C99 /* ImageCache.m */; };
+		DEB5984316CB983C0095F465 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B45CF6C8157EA09500753C99 /* ImageCache.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +77,8 @@
 		B4A1503714F79D1A0053C3C1 /* URLRequestExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLRequestExecutor.h; sourceTree = "<group>"; };
 		B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLRequestExecutor.m; sourceTree = "<group>"; };
 		D2AAC07E0554694100DB518D /* libiphone_web.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiphone_web.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEB5983716CB98290095F465 /* libiphone_web_ssl_trust_all.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiphone_web_ssl_trust_all.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEB5984716CB983C0095F465 /* libmac_web_ssl_trust_all.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmac_web_ssl_trust_all.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +98,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DEB5983116CB98290095F465 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEB5983216CB98290095F465 /* SystemConfiguration.framework in Frameworks */,
+				DEB5983316CB98290095F465 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEB5984116CB983C0095F465 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -80,6 +122,8 @@
 			children = (
 				D2AAC07E0554694100DB518D /* libiphone_web.a */,
 				B48FA1A0155E660E00A8597D /* libmac_web.a */,
+				DEB5983716CB98290095F465 /* libiphone_web_ssl_trust_all.a */,
+				DEB5984716CB983C0095F465 /* libmac_web_ssl_trust_all.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,6 +194,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DEB5982116CB98290095F465 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEB5982216CB98290095F465 /* NSData+Base64.h in Headers */,
+				DEB5982316CB98290095F465 /* FileUpload.h in Headers */,
+				DEB5982416CB98290095F465 /* Multipart.h in Headers */,
+				DEB5982516CB98290095F465 /* WebParams.h in Headers */,
+				DEB5982616CB98290095F465 /* URLRequestExecutor.h in Headers */,
+				DEB5982716CB98290095F465 /* Reachability.h in Headers */,
+				DEB5982816CB98290095F465 /* ImageCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEB5984216CB983C0095F465 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEB5984316CB983C0095F465 /* ImageCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -187,6 +253,40 @@
 			productReference = D2AAC07E0554694100DB518D /* libiphone_web.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		DEB5982016CB98290095F465 /* iphone_web_ssl_trust_all */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEB5983416CB98290095F465 /* Build configuration list for PBXNativeTarget "iphone_web_ssl_trust_all" */;
+			buildPhases = (
+				DEB5982116CB98290095F465 /* Headers */,
+				DEB5982916CB98290095F465 /* Sources */,
+				DEB5983116CB98290095F465 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iphone_web_ssl_trust_all;
+			productName = iphone_web;
+			productReference = DEB5983716CB98290095F465 /* libiphone_web_ssl_trust_all.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DEB5983816CB983C0095F465 /* mac_web_ssl_trust_all */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEB5984416CB983C0095F465 /* Build configuration list for PBXNativeTarget "mac_web_ssl_trust_all" */;
+			buildPhases = (
+				DEB5983916CB983C0095F465 /* Sources */,
+				DEB5984116CB983C0095F465 /* Frameworks */,
+				DEB5984216CB983C0095F465 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mac_web_ssl_trust_all;
+			productName = mac_web;
+			productReference = DEB5984716CB983C0095F465 /* libmac_web_ssl_trust_all.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -213,6 +313,8 @@
 			targets = (
 				D2AAC07D0554694100DB518D /* iphone_web */,
 				B48FA19F155E660E00A8597D /* mac_web */,
+				DEB5982016CB98290095F465 /* iphone_web_ssl_trust_all */,
+				DEB5983816CB983C0095F465 /* mac_web_ssl_trust_all */,
 			);
 		};
 /* End PBXProject section */
@@ -243,6 +345,34 @@
 				B4A1503A14F79D1A0053C3C1 /* URLRequestExecutor.m in Sources */,
 				B44EE52F15494225004FEA7D /* Reachability.m in Sources */,
 				B45CF6CC157EA09500753C99 /* ImageCache.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEB5982916CB98290095F465 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEB5982A16CB98290095F465 /* NSData+Base64.m in Sources */,
+				DEB5982B16CB98290095F465 /* FileUpload.m in Sources */,
+				DEB5982C16CB98290095F465 /* Multipart.m in Sources */,
+				DEB5982D16CB98290095F465 /* WebParams.m in Sources */,
+				DEB5982E16CB98290095F465 /* URLRequestExecutor.m in Sources */,
+				DEB5982F16CB98290095F465 /* Reachability.m in Sources */,
+				DEB5983016CB98290095F465 /* ImageCache.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEB5983916CB983C0095F465 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEB5983A16CB983C0095F465 /* Reachability.m in Sources */,
+				DEB5983B16CB983C0095F465 /* NSData+Base64.m in Sources */,
+				DEB5983C16CB983C0095F465 /* WebParams.m in Sources */,
+				DEB5983D16CB983C0095F465 /* URLRequestExecutor.m in Sources */,
+				DEB5983E16CB983C0095F465 /* Multipart.m in Sources */,
+				DEB5983F16CB983C0095F465 /* FileUpload.m in Sources */,
+				DEB5984016CB983C0095F465 /* ImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +456,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -357,6 +488,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -371,6 +503,109 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		DEB5983516CB98290095F465 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/iphone_web_ssl_trust_all.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = IPHONE_WEB_SSL_TRUST_ALL;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = iphone_web_ssl_trust_all;
+			};
+			name = Debug;
+		};
+		DEB5983616CB98290095F465 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DSTROOT = /tmp/iphone_web_ssl_trust_all.dst;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = IPHONE_WEB_SSL_TRUST_ALL;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = iphone_web_ssl_trust_all;
+			};
+			name = Release;
+		};
+		DEB5984516CB983C0095F465 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					IPHONE_WEB_SSL_TRUST_ALL,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = mac_web_ssl_trust_all;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DEB5984616CB983C0095F465 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = IPHONE_WEB_SSL_TRUST_ALL;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = mac_web_ssl_trust_all;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -401,6 +636,24 @@
 			buildConfigurations = (
 				B48FA1AD155E660E00A8597D /* Debug */,
 				B48FA1AE155E660E00A8597D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEB5983416CB98290095F465 /* Build configuration list for PBXNativeTarget "iphone_web_ssl_trust_all" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEB5983516CB98290095F465 /* Debug */,
+				DEB5983616CB98290095F465 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEB5984416CB983C0095F465 /* Build configuration list for PBXNativeTarget "mac_web_ssl_trust_all" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEB5984516CB983C0095F465 /* Debug */,
+				DEB5984616CB983C0095F465 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
