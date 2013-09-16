@@ -22,7 +22,7 @@ typedef void (^Visitor)(NSString *name, id value, int depth);
 
 static void visitDepth(Visitor visitor, NSString *name, id value, int depth)
 {
-    if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) {
+    if ([value conformsToProtocol:@protocol(NSFastEnumeration)] && ![value isKindOfClass:[NSDictionary class]]) {
         for (id v in value) {
             visitDepth(visitor, name, v, depth + 1);
         }
