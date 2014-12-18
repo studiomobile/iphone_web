@@ -17,7 +17,7 @@ struct sockaddr_in;
 extern NSString* reachabilityString(SCNetworkReachabilityFlags flags);
 
 
-@interface Reachability : NSObject
+@interface SMReachability : NSObject
 @property (nonatomic, readonly) SCNetworkReachabilityFlags flags;
 @property (nonatomic, readonly) NetworkStatus status;
 
@@ -32,10 +32,10 @@ extern NSString* reachabilityString(SCNetworkReachabilityFlags flags);
 
 - (id)initWithReachabilityRef:(SCNetworkReachabilityRef)ref;
 
-+ (Reachability*)reachabilityWithHostname:(NSString*)hostname;
-+ (Reachability*)reachabilityForInternetConnection;
-+ (Reachability*)reachabilityWithAddress:(const struct sockaddr_in*)hostAddress;
-+ (Reachability*)reachabilityForLocalWiFi;
++ (SMReachability *)reachabilityWithHostname:(NSString*)hostname;
++ (SMReachability *)reachabilityForInternetConnection;
++ (SMReachability *)reachabilityWithAddress:(const struct sockaddr_in*)hostAddress;
++ (SMReachability *)reachabilityForLocalWiFi;
 
 - (BOOL)start;
 - (void)stop;

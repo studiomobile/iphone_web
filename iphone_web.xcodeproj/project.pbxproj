@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
-		B44EE52E15494225004FEA7D /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = B44EE52C15494225004FEA7D /* Reachability.h */; };
-		B44EE52F15494225004FEA7D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
+		B44EE52E15494225004FEA7D /* SMReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = B44EE52C15494225004FEA7D /* SMReachability.h */; };
+		B44EE52F15494225004FEA7D /* SMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* SMReachability.m */; };
 		B44EE5321549423E004FEA7D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44EE5311549423E004FEA7D /* SystemConfiguration.framework */; };
 		B45CF6CA157EA09500753C99 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B45CF6C8157EA09500753C99 /* ImageCache.h */; };
 		B45CF6CB157EA09500753C99 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B45CF6C8157EA09500753C99 /* ImageCache.h */; };
@@ -23,7 +23,7 @@
 		B483A3D814EBE8FA00E1FC5A /* Multipart.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3D614EBE8FA00E1FC5A /* Multipart.m */; };
 		B483A3DB14EBE95C00E1FC5A /* WebParams.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D914EBE95C00E1FC5A /* WebParams.h */; };
 		B483A3DC14EBE95C00E1FC5A /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3DA14EBE95C00E1FC5A /* WebParams.m */; };
-		B48FA1B1155E662C00A8597D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
+		B48FA1B1155E662C00A8597D /* SMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* SMReachability.m */; };
 		B48FA1B2155E663100A8597D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
 		B48FA1B3155E663300A8597D /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3DA14EBE95C00E1FC5A /* WebParams.m */; };
 		B48FA1B4155E663600A8597D /* FileUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3CE14EBE8AB00E1FC5A /* FileUpload.m */; };
@@ -36,18 +36,18 @@
 		DEB5982416CB98290095F465 /* Multipart.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D514EBE8FA00E1FC5A /* Multipart.h */; };
 		DEB5982516CB98290095F465 /* WebParams.h in Headers */ = {isa = PBXBuildFile; fileRef = B483A3D914EBE95C00E1FC5A /* WebParams.h */; };
 		DEB5982616CB98290095F465 /* URLRequestExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = B4A1503714F79D1A0053C3C1 /* URLRequestExecutor.h */; };
-		DEB5982716CB98290095F465 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = B44EE52C15494225004FEA7D /* Reachability.h */; };
+		DEB5982716CB98290095F465 /* SMReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = B44EE52C15494225004FEA7D /* SMReachability.h */; };
 		DEB5982816CB98290095F465 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B45CF6C8157EA09500753C99 /* ImageCache.h */; };
 		DEB5982A16CB98290095F465 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
 		DEB5982B16CB98290095F465 /* FileUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3CE14EBE8AB00E1FC5A /* FileUpload.m */; };
 		DEB5982C16CB98290095F465 /* Multipart.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3D614EBE8FA00E1FC5A /* Multipart.m */; };
 		DEB5982D16CB98290095F465 /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3DA14EBE95C00E1FC5A /* WebParams.m */; };
 		DEB5982E16CB98290095F465 /* URLRequestExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */; };
-		DEB5982F16CB98290095F465 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
+		DEB5982F16CB98290095F465 /* SMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* SMReachability.m */; };
 		DEB5983016CB98290095F465 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CF6C9157EA09500753C99 /* ImageCache.m */; };
 		DEB5983216CB98290095F465 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44EE5311549423E004FEA7D /* SystemConfiguration.framework */; };
 		DEB5983316CB98290095F465 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
-		DEB5983A16CB983C0095F465 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* Reachability.m */; };
+		DEB5983A16CB983C0095F465 /* SMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B44EE52D15494225004FEA7D /* SMReachability.m */; };
 		DEB5983B16CB983C0095F465 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B462AE861292D9E2008A8ECC /* NSData+Base64.m */; };
 		DEB5983C16CB983C0095F465 /* WebParams.m in Sources */ = {isa = PBXBuildFile; fileRef = B483A3DA14EBE95C00E1FC5A /* WebParams.m */; };
 		DEB5983D16CB983C0095F465 /* URLRequestExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A1503814F79D1A0053C3C1 /* URLRequestExecutor.m */; };
@@ -59,8 +59,8 @@
 
 /* Begin PBXFileReference section */
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		B44EE52C15494225004FEA7D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		B44EE52D15494225004FEA7D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		B44EE52C15494225004FEA7D /* SMReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMReachability.h; sourceTree = "<group>"; };
+		B44EE52D15494225004FEA7D /* SMReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMReachability.m; sourceTree = "<group>"; };
 		B44EE5311549423E004FEA7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B45CF6C8157EA09500753C99 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
 		B45CF6C9157EA09500753C99 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 			children = (
 				B45CF6C8157EA09500753C99 /* ImageCache.h */,
 				B45CF6C9157EA09500753C99 /* ImageCache.m */,
-				B44EE52C15494225004FEA7D /* Reachability.h */,
-				B44EE52D15494225004FEA7D /* Reachability.m */,
+				B44EE52C15494225004FEA7D /* SMReachability.h */,
+				B44EE52D15494225004FEA7D /* SMReachability.m */,
 				B462AE851292D9E2008A8ECC /* NSData+Base64.h */,
 				B462AE861292D9E2008A8ECC /* NSData+Base64.m */,
 				B483A3D914EBE95C00E1FC5A /* WebParams.h */,
@@ -189,7 +189,7 @@
 				B483A3D714EBE8FA00E1FC5A /* Multipart.h in Headers */,
 				B483A3DB14EBE95C00E1FC5A /* WebParams.h in Headers */,
 				B4A1503914F79D1A0053C3C1 /* URLRequestExecutor.h in Headers */,
-				B44EE52E15494225004FEA7D /* Reachability.h in Headers */,
+				B44EE52E15494225004FEA7D /* SMReachability.h in Headers */,
 				B45CF6CA157EA09500753C99 /* ImageCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,7 +203,7 @@
 				DEB5982416CB98290095F465 /* Multipart.h in Headers */,
 				DEB5982516CB98290095F465 /* WebParams.h in Headers */,
 				DEB5982616CB98290095F465 /* URLRequestExecutor.h in Headers */,
-				DEB5982716CB98290095F465 /* Reachability.h in Headers */,
+				DEB5982716CB98290095F465 /* SMReachability.h in Headers */,
 				DEB5982816CB98290095F465 /* ImageCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,7 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B48FA1B1155E662C00A8597D /* Reachability.m in Sources */,
+				B48FA1B1155E662C00A8597D /* SMReachability.m in Sources */,
 				B48FA1B2155E663100A8597D /* NSData+Base64.m in Sources */,
 				B48FA1B3155E663300A8597D /* WebParams.m in Sources */,
 				B48FA1B5155E663900A8597D /* URLRequestExecutor.m in Sources */,
@@ -343,7 +343,7 @@
 				B483A3D814EBE8FA00E1FC5A /* Multipart.m in Sources */,
 				B483A3DC14EBE95C00E1FC5A /* WebParams.m in Sources */,
 				B4A1503A14F79D1A0053C3C1 /* URLRequestExecutor.m in Sources */,
-				B44EE52F15494225004FEA7D /* Reachability.m in Sources */,
+				B44EE52F15494225004FEA7D /* SMReachability.m in Sources */,
 				B45CF6CC157EA09500753C99 /* ImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,7 +357,7 @@
 				DEB5982C16CB98290095F465 /* Multipart.m in Sources */,
 				DEB5982D16CB98290095F465 /* WebParams.m in Sources */,
 				DEB5982E16CB98290095F465 /* URLRequestExecutor.m in Sources */,
-				DEB5982F16CB98290095F465 /* Reachability.m in Sources */,
+				DEB5982F16CB98290095F465 /* SMReachability.m in Sources */,
 				DEB5983016CB98290095F465 /* ImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,7 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEB5983A16CB983C0095F465 /* Reachability.m in Sources */,
+				DEB5983A16CB983C0095F465 /* SMReachability.m in Sources */,
 				DEB5983B16CB983C0095F465 /* NSData+Base64.m in Sources */,
 				DEB5983C16CB983C0095F465 /* WebParams.m in Sources */,
 				DEB5983D16CB983C0095F465 /* URLRequestExecutor.m in Sources */,

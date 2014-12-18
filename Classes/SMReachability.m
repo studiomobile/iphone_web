@@ -2,7 +2,7 @@
 //  This content is released under the MIT License: http://www.opensource.org/licenses/mit-license.html
 //
 
-#import "Reachability.h"
+#import "SMReachability.h"
 #import <netinet/in.h>
 
 
@@ -10,22 +10,22 @@ NSString *const kReachabilityChangedNotification = @"kReachabilityChangedNotific
 
 static void reachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void* info);
 
-@implementation Reachability {
+@implementation SMReachability {
     SCNetworkReachabilityRef reachabilityRef;
     __strong id thisRef;
 }
 
-+ (Reachability*)reachabilityWithHostname:(NSString*)hostname
++ (SMReachability *)reachabilityWithHostname:(NSString*)hostname
 {
     return [[self alloc] initWithReachabilityRef:SCNetworkReachabilityCreateWithName(NULL, [hostname UTF8String])];
 }
 
-+ (Reachability *)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress
++ (SMReachability *)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress
 {
     return [[self alloc] initWithReachabilityRef:SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr*)hostAddress)];
 }
 
-+ (Reachability *)reachabilityForInternetConnection
++ (SMReachability *)reachabilityForInternetConnection
 {   
     struct sockaddr_in addr;
     bzero(&addr, sizeof(addr));
@@ -34,7 +34,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return [self reachabilityWithAddress:&addr];
 }
 
-+ (Reachability*)reachabilityForLocalWiFi
++ (SMReachability *)reachabilityForLocalWiFi
 {
     struct sockaddr_in addr;
     memset(&addr, 0, sizeof(addr));
@@ -176,7 +176,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 static void reachabilityCallback(SCNetworkReachabilityRef _, SCNetworkReachabilityFlags flags, void* info)
 {
-    Reachability *reachability = (__bridge Reachability*)info;
+    SMReachability *reachability = (__bridge SMReachability *)info;
     [reachability reachabilityChanged:flags];
 }
 
