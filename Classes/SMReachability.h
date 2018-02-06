@@ -7,11 +7,11 @@
 
 extern NSString *const kReachabilityChangedNotification;
 
-typedef enum {
-	NotReachable     = 0,
-	ReachableViaWiFi = 2,
-	ReachableViaWWAN = 1
-} NetworkStatus;
+typedef NS_ENUM(NSUInteger, NetworkStatus) {
+    NotReachable     = 0,
+    ReachableViaWiFi = 2,
+    ReachableViaWWAN = 1
+};
 
 struct sockaddr_in;
 extern NSString* reachabilityString(SCNetworkReachabilityFlags flags);
