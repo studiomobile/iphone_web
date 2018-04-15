@@ -113,9 +113,14 @@ static void visit(Visitor visitor, NSString *name, id value)
 {
 	if (!obj) return;
     NSMutableArray *values = [NSMutableArray new];
+    __weak WebParams *weakSelf = self;
     visit(^(NSString *name, id value, int depth) {
+        WebParams *strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
         value = [FileUpload wrapDataObject:value name:name];
-        multipart |= IS_FILEUPLOAD(value);
+        strongSelf->multipart |= IS_FILEUPLOAD(value);
         [values addObject:value];
     }, key, obj);
     if (!values.count) return;
